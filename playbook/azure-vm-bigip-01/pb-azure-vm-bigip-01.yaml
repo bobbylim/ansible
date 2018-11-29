@@ -1,0 +1,86 @@
+
+  - name: Deploy F5 BIGIP-01 using ARM template
+    azure_rm_deployment:
+      state: present
+      resource_group_name: 'RG_VM-BIGIP-01'
+      location: 'japanwest'
+      template_link: 'https://raw.githubusercontent.com/F5Networks/f5-azure-arm-templates/master/supported/standalone/3nic/existing-stack/byol/azuredeploy.json'
+      parameters:
+        adminUsername:
+          value: "azureuser"
+        adminPasswordOrKey:
+          value: "P@ssw0rd!1234"
+        dnsLabel:
+          value: 'enid-bigip-01'
+        instanceName:
+          value: 'vm-bigip-01'
+        instanceType:
+          value: "Standard_DS3_v2"
+        imageName:
+          value: "AllTwoBootLocations"
+        bigIpVersion:
+          value: "latest"
+        licenseKey1:
+          value: "OJYFJ-GLMFL-KMNQM-MUNXE-MYNSOVU"
+        vnetName:
+          value: "VN-F5LAB"
+        vnetResourceGroupName:
+          value: "RG_VN-F5LAB"
+        mgmtSubnetName:
+          value: "VLAN_MGMT"
+        mgmtIpAddress:
+          value: "10.1.255.10"
+        numberOfExternalIps:
+          value: 4
+        externalSubnetName:
+          value: "VLAN_EXTERNAL"
+        externalIpAddressRangeStart:
+          value: "10.1.10.10"
+        internalSubnetName:
+          value: "VLAN_INTERNAL"
+        internalIpAddress:
+          value: "10.1.20.10"
+        avSetChoice:
+          value: "CREATE_NEW"
+        ntpServer:
+          value: "0.pool.ntp.org"
+        timeZone:
+          value: "Asia/Jakarta"
+        restrictedSrcAddress:
+          value: "*"
+        tagValues:
+          value:
+            Name: 'vm-bigip-01'
+            Type: 'f5'
+            application: 'APP'
+            cost: 'COST'
+            environment: 'ENV'
+            group: 'GROUP'
+            owner: 'OWNER'
+        allowUsageAnalytics:
+            value: "Yes"
+    register: output
+  - name: Add TCP Port 22, 80, and 443 rules to F5 BIGIP-01 EXT security group
+    become: no
+    azure_rm_securitygroup:
+      resource_group: RG_VM-BIGIP-01
+      name: enid-bigip-01-ext-nsg
+      rules:
+       - name: 'SSH'
+         protocol: Tcp
+         destination_port_range: '20'
+         access: Allow
+         direction: Inbound
+         priority: '100'
+       - name: 'HTTP'
+         protocol: Tcp
+         destination_port_range: '80'
+         access: Allow
+         direction: Inbound
+         priority: '200'
+       - name: 'HTTPS'
+         protocol: Tcp
+         destination_port_range: '443'
+         access: Allow
+         direction: Inbound
+         priority: '300'
