@@ -1,0 +1,71 @@
+- name: Create Azure VM UBUNTU-01
+  hosts: localhost
+  connection: local
+
+  tasks:
+  - name: Create resource group
+    azure_rm_resourcegroup:
+      name: RG_VM-UBUNTU-01
+      location: japanwest
+
+  - name: Create public IP address
+    azure_rm_publicipaddress:
+      resource_group: RG_VM-UBUNTU-01
+      allocation_method: Static
+      name: VM-UBUNTU-01-pip
+      domain_name: enid-ubuntu-01
+    register: output_ip_address
+
+  - name: Create Network Security Group
+    azure_rm_securitygroup:
+      resource_group: RG_VM-UBUNTU-01
+      name: VM-UBUNTU-01-nsg
+      rules:
+        - name: SSH
+          protocol: Tcp
+          destination_port_range: 22
+          access: Allow
+          priority: 200
+          direction: Inbound
+        - name: HTTP
+          protocol: Tcp
+          destination_port_range: 80
+          access: Allow
+          priority: 400
+          direction: Inbound
+        - name: Port_8000-9000
+          protocol: Tcp
+          destination_port_range: 8000-9000
+          access: Allow
+          priority: 600
+          direction: Inbound
+
+  - name: Create virtual network inteface card
+    azure_rm_networkinterface:
+      resource_group: RG_VM-UBUNTU-01
+      name: VM-UBUNTU-01-nic
+      virtual_network_name: '/subscriptions/f922300f-ac2f-4ea7-99b7-366627dbbdad/resourceGroups/RG_VN-F5LAB/providers/Microsoft.Network/virtualNetworks/VN-F5LAB'
+      subnet_name: VLAN_INTERNAL
+      ip_configurations:
+        - name: VM-UBUNTU-01-ip
+          private_ip_allocation_method: Static
+          private_ip_address: 10.1.20.11
+          public_ip_address_name: VM-UBUNTU-01-pip
+      security_group: VM-UBUNTU-01-nsg
+
+  - name: Create VM
+    azure_rm_virtualmachine:
+      resource_group: RG_VM-UBUNTU-01
+      name: VM-UBUNTU-01
+      vm_size: Standard_D2s_v3
+      admin_username: azureuser
+      admin_password: P@ssw0rd!1234
+      ssh_public_keys:
+        - path: '/home/azureuser/.ssh/authorized_keys'
+          key_data: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCufrdNdtcWdsafFUiEPSpRwMSShfsqCzmyBjGLITRAnExpz0QZAFh+eKVCS8jjHPwvaZjWj2j4+7faUknz0ujB+FW3ZovMIzRW+mfIAGJGkEJ9n8ch0uFdQDmKb7SpHY9dIP9lTAlUtZ1e+qK3LMjuuRZbD+/Q2HbCIvEPS3UfLiqAFQ+OVTpsh8VgzPMedestK6IOmVtEyZaYBIAODE830Am3x9EFWH6Dr2rCCzsFRQiVASSYg/ixgli827sX46qu0b7UKDhCmMlOuIin6297NkCxeimjZovavT62NyKZ+Rwv8l/s0SiZ/IbX9N7IvfBWu1xg5P+v6DEeoRXR693Z rei@ubuntu'
+      network_interfaces: VM-UBUNTU-01-nic
+      image:
+        offer: 'UbuntuServer'
+        publisher: 'Canonical'
+        sku: '18.04-LTS'
+        version: 'latest'
