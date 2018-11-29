@@ -1,0 +1,12 @@
+[default]
+localhost
+
+[ubuntu]
+enid-ubuntu-01.japanwest.cloudapp.azure.com
+enid-ubuntu-02.japanwest.cloudapp.azure.com
+
+[ubuntu:vars]
+ansible_connection=ssh
+ansible_user=azureuser
+ansible_ssh_pass=P@ssw0rd!1234
+
