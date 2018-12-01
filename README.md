@@ -5,3 +5,5 @@ Requirements:
 - Ansible installed
 - Azure cli installed
 - Parallel installed
+
+Clone the repository and run .sh script
