@@ -2,8 +2,8 @@
 
 # sudo su
 # change directory to ansible (cd /R31/github/ansible)
-# Make sure to login to azure (az login)
-# Delete known host file (nano /root/.ssh/known_hosts)
+# make sure to login to azure (az login)
+# delete known host file (nano /root/.ssh/known_hosts)
 # input F5 BIGIP license on ansible playbook (pb-azure-vm-bigip-01.yaml)
 # run shell script (./azure-demo-01.sh)
 
