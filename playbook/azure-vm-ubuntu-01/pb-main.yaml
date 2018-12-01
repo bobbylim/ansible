@@ -1,11 +1,4 @@
 
-- name: Create Virtual Network & Subnets
-  hosts: localhost
-  connection: local
-  tasks:
-  - name: Create Virtual Network & Subnets
-    include_tasks: pb-azure-vn.yaml
-
 - name: STEP-01 Create Azure VM UBUNTU-01
   hosts: localhost
   gather_facts: no

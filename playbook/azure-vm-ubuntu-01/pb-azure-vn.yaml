@@ -1,4 +1,9 @@
 
+- name: Create Virtual Network & Subnets
+  hosts: localhost
+  connection: local
+  tasks:
+
   - name: Create resource group RG_VN-F5LAB
     azure_rm_resourcegroup:
       name: RG_VN-F5LAB
