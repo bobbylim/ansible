@@ -1,3 +1,4 @@
+# This script will automatically Create F5-BIGIP and UBUNTU VM on Azure
 
 # sudo su
 # change directory to ansible (cd /R31/github/ansible)
