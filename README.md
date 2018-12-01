@@ -6,4 +6,4 @@ Requirements:
 - Azure cli installed
 - Parallel installed
 
-Clone the repository and run .sh script
+Clone the repository and run .sh script (follow instruction on .sh script comment)
