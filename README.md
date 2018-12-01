@@ -1,5 +1,5 @@
 # Ansible
-Just a random collections of ansible playbooks to provision VM on Azure.
+Just a random collections of ansible playbooks to provision VM on Azure for F5 demo purposes.
 
 Requirements:
 - Ansible installed
