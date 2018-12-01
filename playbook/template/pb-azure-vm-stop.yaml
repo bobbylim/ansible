@@ -8,4 +8,3 @@
       resource_group: RG_VM-UBUNTU-02
       name: VM-UBUNTU-02
       started: no
-      
