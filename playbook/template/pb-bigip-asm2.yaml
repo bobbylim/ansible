@@ -17,7 +17,7 @@
     bigip_policy:
       provider: "{{ BIGIP }}"
       name: POLICY_VS_HACKIT_01
-      state: draft
+      state: present
     delegate_to: localhost
 
   - name: Create rule to enable ASM Policy
@@ -30,13 +30,6 @@
       actions:
         - type: enable
           asm_policy: SP_HACKIT_01
-    delegate_to: localhost
-
-  - name: Create LTM policy for ASM
-    bigip_policy:
-      provider: "{{ BIGIP }}"
-      name: POLICY_VS_HACKIT_01
-      state: present
     delegate_to: localhost
 
   - name: Assign LTM Policy to VS
