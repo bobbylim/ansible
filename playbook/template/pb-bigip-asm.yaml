@@ -21,7 +21,7 @@
           - DOS_HACKIT_01
           - AP_TEST_01
           - SP_TEST_01
-          - HTTP_01
+          - http
           - tcp
       delegate_to: localhost
 
