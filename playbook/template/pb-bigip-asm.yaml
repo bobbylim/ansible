@@ -1,6 +1,6 @@
 ---
 
-- name: Assign ASM, APM, DOS Policy to VS
+- name: Assign ASM Security Policy, APM Access Proifle, DOS Policy to VS
   hosts: localhost
   connection: local
 
