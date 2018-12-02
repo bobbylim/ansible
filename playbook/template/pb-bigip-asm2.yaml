@@ -41,6 +41,8 @@
       policies: POLICY_VS_HACKIT_01
       profiles:
         - websecurity
+        - tcp
+        - http
     delegate_to: localhost
 
   - name: Save the running configuration of the BIG-IP
