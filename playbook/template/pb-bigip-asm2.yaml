@@ -1,6 +1,6 @@
 ---
 
-- name: Assign ASM Policy to VS
+- name: Assign ASM, APM, DOS Policy to VS
   hosts: localhost
   connection: local
 
@@ -32,7 +32,7 @@
           asm_policy: SP_TEST_01
     delegate_to: localhost
 
-  - name: Assign LTM Policy to VS
+  - name: Assign ASM (LTM Policy), APM, DOS policy to VS
     bigip_virtual_server:
       provider: "{{ BIGIP }}"
       name: VS_HACKIT_01
@@ -40,6 +40,8 @@
       port: 80
       policies: POLICY_VS_HACKIT_01
       profiles:
+        - DOS_HACKIT_01
+        - AP_TEST_01
         - websecurity
         - tcp
         - http
