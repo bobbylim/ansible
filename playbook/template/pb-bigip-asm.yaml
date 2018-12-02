@@ -1,8 +1,7 @@
 ---
 
 - name: Apply ASM Policy to VS
-
-  hosts: all
+  hosts: localhost
   connection: local
 
   vars:
