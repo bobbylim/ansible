@@ -39,6 +39,8 @@
       destination: 192.168.1.21
       port: 80
       policies: POLICY_VS_HACKIT_01
+      profiles:
+        - websecurity
     delegate_to: localhost
 
   - name: Save the running configuration of the BIG-IP
