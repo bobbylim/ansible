@@ -29,7 +29,7 @@
         - type: all_traffic
       actions:
         - type: enable
-          asm_policy: SP_HACKIT_01
+          asm_policy: SP_TEST_01
     delegate_to: localhost
 
   - name: Assign LTM Policy to VS
