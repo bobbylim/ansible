@@ -1,6 +1,6 @@
 ---
 
-- name: Apply ASM Policy to VS
+- name: Assign ASM, DOS, APM Policy to VS
   hosts: localhost
   connection: local
 
@@ -22,4 +22,10 @@
           - AP_TEST_01
           - HTTP_01
           - tcp
+      delegate_to: localhost
+
+    - name: Save the running configuration of the BIG-IP
+      bigip_config:
+        provider: "{{ BIGIP }}"
+        save: yes
       delegate_to: localhost
