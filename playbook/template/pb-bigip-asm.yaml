@@ -1,6 +1,6 @@
 ---
 
-- name: Assign ASM, DOS, APM Policy to VS
+- name: Assign Policy to VS
   hosts: localhost
   connection: local
 
@@ -13,7 +13,7 @@
       password: R@yanam1
 
   tasks:
-    - name: Create a VS
+    - name: Assign ASM / DOS / APM policy to VS
       bigip_virtual_server:
         provider: "{{ BIGIP }}"
         name: VS_HACKIT_01
