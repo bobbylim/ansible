@@ -1,6 +1,6 @@
 ---
 
-- name: Assign Policy to VS
+- name: Assign ASM Policy to VS
   hosts: localhost
   connection: local
 
@@ -15,12 +15,14 @@
   tasks:
   - name: Create LTM policy for ASM
     bigip_policy:
+      provider: "{{ BIGIP }}"
       name: POLICY_VS_HACKIT_01
       state: present
     delegate_to: localhost
 
-  - name: Add a rule to the new policy - Immediately published
+  - name: Create rule to enable ASM Policy
     bigip_policy_rule:
+      provider: "{{ BIGIP }}"
       policy: POLICY_VS_HACKIT_01
       name: asm
       conditions:
@@ -28,6 +30,14 @@
       actions:
         - type: enable
           asm_policy: SP_HACKIT_01
+    delegate_to: localhost
+
+  - name: Assign LTM Policy to VS
+    bigip_virtual_server:
+      provider: "{{ BIGIP }}"
+      name: VS-YAML-01
+      policies: POLICY_VS_HACKIT_01
+    delegate_to: localhost
 
   - name: Save the running configuration of the BIG-IP
     bigip_config:
