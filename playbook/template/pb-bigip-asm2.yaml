@@ -35,7 +35,7 @@
   - name: Assign LTM Policy to VS
     bigip_virtual_server:
       provider: "{{ BIGIP }}"
-      name: VS-HACKIT-01
+      name: VS_HACKIT_01
       destination: 192.168.1.21
       port: 80
       policies: POLICY_VS_HACKIT_01
