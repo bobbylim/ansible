@@ -17,7 +17,7 @@
     bigip_asm_policy:
       provider: "{{ BIGIP }}"
       name: SP_HACKIT_01
-      file: resources/ASM_SP_HACKIT_01.xml
+      file: /R31/github/ansible/resources/ASM_SP_HACKIT_01.xml
       active: yes
       state: present
     delegate_to: localhost
