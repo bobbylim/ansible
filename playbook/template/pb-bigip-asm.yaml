@@ -1,0 +1,25 @@
+---
+
+- name: Apply ASM Policy to VS
+
+  hosts: all
+  connection: local
+
+  vars:
+    BIGIP:
+      server: 192.168.1.11
+      server_port: 443
+      validate_certs: no
+      user: admin
+      password: R@yanam1
+
+  tasks:
+    - name: Create a VS
+      bigip_virtual_server:
+        provider: "{{ BIGIP }}"
+        name: VS_HACKIT_01
+        profiles:
+          - DOS_HACKIT_01
+          - AP_TEST_01
+          - ASM_SP_TEST_01
+      delegate_to: localhost
