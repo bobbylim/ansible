@@ -20,7 +20,7 @@
         profiles:
           - DOS_HACKIT_01
           - AP_TEST_01
-          - SP_TEST_01
+          - ASM_SP_TEST_01
           - http
           - tcp
       delegate_to: localhost
