@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Delete resource group
+      azure_rm_resourcegroup:
+        name: R31-RG_ANSIBLE-TEST-01
+        state: absent
+      register: rg
+    - debug:
+        var: rg
