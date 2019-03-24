@@ -1,0 +1,2 @@
+ansible-playbook -i inventory/hosts playbook/azure-vm-ubuntu-01/pb-main.yaml
+ansible-playbook -i inventory/hosts playbook/azure-vm-bigip-01/pb-main.yaml

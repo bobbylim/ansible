@@ -1,0 +1,15 @@
+---
+
+  - name: Provision LTM, ASM, APM
+    bigip_provision:
+      provider: "{{ BIGIP }}"
+      module: "{{ item.module }}"
+      level: "{{ item.level }}"
+    with_items:
+      - module: ltm
+        level: nominal
+      - module: asm
+        level: nominal
+      - module: apm
+        level: nominal
+    delegate_to: localhost

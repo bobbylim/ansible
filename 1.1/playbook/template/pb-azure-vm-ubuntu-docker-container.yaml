@@ -1,0 +1,36 @@
+- name: Pull & Create Container
+  hosts: enid-ubuntu-01.japanwest.cloudapp.azure.com
+  remote_user: azureuser
+  become: yes
+  become_method: sudo
+  connection: ssh
+  tasks:
+  - name: Pull image HACKAZON
+    docker_image:
+      name: ianwijaya/hackazon
+
+  - name: Pull image JUICE-SHOP
+    docker_image:
+      name: bkimminich/juice-shop
+
+  - name: Pull image DVWA
+    docker_image:
+      name: vulnerables/web-dvwa
+
+  - name: Create Container HACKAZON-01
+    docker_container:
+      name: HACKAZON-01
+      image: ianwijaya/hackazon
+      ports: 8011:80
+
+  - name: Create Container HACAKZON-02
+    docker_container:
+      name: HACKAZON-02
+      image: ianwijaya/hackazon
+      ports: 8012:80
+
+  - name: Create Container DVWA-01
+    docker_container:
+      name: DVWA-01
+      image: vulnerables/web-dvwa
+      ports: 8021:80
