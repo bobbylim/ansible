@@ -14,25 +14,25 @@
       name: VN-F5LAB
       resource_group: RG_VN-F5LAB
       address_prefixes_cidr:
-          - "10.1.0.0/16"
+          - "10.6.0.0/16"
 
   - name: Create subnet VLAN_EXTERNAL
     azure_rm_subnet:
       name: VLAN_EXTERNAL
       virtual_network_name: VN-F5LAB
       resource_group: RG_VN-F5LAB
-      address_prefix_cidr: "10.1.10.0/24"
+      address_prefix_cidr: "10.6.10.0/24"
 
   - name: Create subnet VLAN_INTERNAL
     azure_rm_subnet:
       name: VLAN_INTERNAL
       virtual_network_name: VN-F5LAB
       resource_group: RG_VN-F5LAB
-      address_prefix_cidr: "10.1.20.0/24"
+      address_prefix_cidr: "10.6.20.0/24"
 
   - name: Create subnet VLAN_MGMT
     azure_rm_subnet:
       name: VLAN_MGMT
       virtual_network_name: VN-F5LAB
       resource_group: RG_VN-F5LAB
-      address_prefix_cidr: "10.1.255.0/24"
+      address_prefix_cidr: "10.6.255.0/24"
