@@ -4,7 +4,7 @@
       state: present
       resource_group_name: 'RG_VM-BIGIP-01'
       location: 'japanwest'
-      template_link: 'https://raw.githubusercontent.com/F5Networks/f5-azure-arm-templates/master/supported/standalone/3nic/existing-stack/byol/azuredeploy.json'
+      template_link: 'https://raw.githubusercontent.com/F5Networks/f5-azure-arm-templates/master/supported/standalone/3nic/existing-stack/payg/azuredeploy.json'
       parameters:
         adminUsername:
           value: "azureuser"
@@ -20,8 +20,6 @@
           value: "AllTwoBootLocations"
         bigIpVersion:
           value: "latest"
-        licenseKey1:
-          value: "SIXTQ-PVJXT-IGOKZ-RAVQB-IGGOMIQ"
         vnetName:
           value: "VN-F5LAB"
         vnetResourceGroupName:
