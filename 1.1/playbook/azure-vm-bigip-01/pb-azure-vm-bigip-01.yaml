@@ -3,7 +3,7 @@
     azure_rm_deployment:
       state: present
       resource_group_name: 'RG-R31_VM-BIGIP-01'
-      location: 'japanwest'
+      location: 'southeastasia'
       template_link: 'https://raw.githubusercontent.com/F5Networks/f5-azure-arm-templates/master/supported/standalone/3nic/existing-stack/payg/azuredeploy.json'
       parameters:
         adminUsername:
