@@ -17,7 +17,7 @@
         instanceType:
           value: "Standard_DS3_v2"
         imageName:
-          value: "AllTwoBootLocations"
+          value: "Best200Mbps"
         bigIpVersion:
           value: "latest"
         vnetName:
