@@ -1,15 +1,15 @@
 
   - name: Create resource group
     azure_rm_resourcegroup:
-      name: RG_VM-UBUNTU-01
-      location: japanwest
+      name: RG-R31_VM-UBUNTU-01
+      location: southeastasia
 
   - name: Create public IP address
     azure_rm_publicipaddress:
-      resource_group: RG_VM-UBUNTU-01
+      resource_group: RG-R31_VM-UBUNTU-01
       allocation_method: Static
       name: VM-UBUNTU-01-pip
-      domain_name: enid-ubuntu-01
+      domain_name: r31-ubuntu-01
     register: public_ip_address
 
   - name: Allocated public IP address
@@ -18,7 +18,7 @@
 
   - name: Create Network Security Group
     azure_rm_securitygroup:
-      resource_group: RG_VM-UBUNTU-01
+      resource_group: RG-R31_VM-UBUNTU-01
       name: VM-UBUNTU-01-nsg
       rules:
         - name: SSH
@@ -42,7 +42,7 @@
 
   - name: Create virtual network inteface card
     azure_rm_networkinterface:
-      resource_group: RG_VM-UBUNTU-01
+      resource_group: RG-R31_VM-UBUNTU-01
       name: VM-UBUNTU-01-nic
       virtual_network_name: '/subscriptions/9e15f7f5-cb3a-43d6-99c4-624c2faff15a/resourceGroups/RG_VN-F5LAB/providers/Microsoft.Network/virtualNetworks/VN-F5LAB'
       subnet_name: VLAN_INTERNAL
@@ -55,7 +55,7 @@
 
   - name: Create VM
     azure_rm_virtualmachine:
-      resource_group: RG_VM-UBUNTU-01
+      resource_group: RG-R31_VM-UBUNTU-01
       name: VM-UBUNTU-01
       vm_size: Standard_D2s_v3
       admin_username: azureuser
