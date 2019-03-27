@@ -17,7 +17,7 @@
   tasks:
   - include_tasks: pb-azure-vm-bigip-vs-pool.yaml
 
-- name: STEP-03 Provsion F5 Module
+- name: STEP-03 Provision F5 Module
   hosts: localhost
   connection: local
   vars:
