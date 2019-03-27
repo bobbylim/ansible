@@ -44,7 +44,7 @@
     azure_rm_networkinterface:
       resource_group: RG-R31_VM-UBUNTU-01
       name: VM-UBUNTU-01-nic
-      virtual_network_name: '/subscriptions/9e15f7f5-cb3a-43d6-99c4-624c2faff15a/resourceGroups/RG_VN-F5LAB/providers/Microsoft.Network/virtualNetworks/VN-F5LAB'
+      virtual_network_name: '/subscriptions/9e15f7f5-cb3a-43d6-99c4-624c2faff15a/resourceGroups/RG-R31/providers/Microsoft.Network/virtualNetworks/VN-R31'
       subnet_name: VLAN_INTERNAL
       ip_configurations:
         - name: VM-UBUNTU-01-ip
