@@ -8,4 +8,5 @@ r31-ubuntu-02.southeastasia.cloudapp.azure.com
 [ubuntu:vars]
 ansible_connection=ssh
 ansible_user=azureuser
-ansible_ssh_pass=P@ssw0rd!1234
+
+# ansible_ssh_pass=P@ssw0rd!1234
