@@ -69,5 +69,8 @@
         publisher: 'Canonical'
         sku: '18.04-LTS'
         version: 'latest'
+      tags:
+        owner: 'R31'
+        user: 'Bobby'
 
   - pause: seconds=60
