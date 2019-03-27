@@ -2,7 +2,7 @@
   - name: Deploy F5 BIGIP-01 using ARM template
     azure_rm_deployment:
       state: present
-      resource_group_name: 'RG_VM-BIGIP-01'
+      resource_group_name: 'RG-R31_VM-BIGIP-01'
       location: 'japanwest'
       template_link: 'https://raw.githubusercontent.com/F5Networks/f5-azure-arm-templates/master/supported/standalone/3nic/existing-stack/payg/azuredeploy.json'
       parameters:
@@ -11,7 +11,7 @@
         adminPasswordOrKey:
           value: "P@ssw0rd!1234"
         dnsLabel:
-          value: 'enid-bigip-01'
+          value: 'r31-bigip-01'
         instanceName:
           value: 'vm-bigip-01'
         instanceType:
@@ -21,13 +21,13 @@
         bigIpVersion:
           value: "latest"
         vnetName:
-          value: "VN-F5LAB"
+          value: "VN-R31"
         vnetResourceGroupName:
-          value: "RG_VN-F5LAB"
+          value: "RG-R31"
         mgmtSubnetName:
           value: "VLAN_MGMT"
         mgmtIpAddress:
-          value: "10.6.255.10"
+          value: "10.6.0.10"
         numberOfExternalIps:
           value: 4
         externalSubnetName:
@@ -54,15 +54,16 @@
             cost: 'COST'
             environment: 'ENV'
             group: 'GROUP'
-            owner: 'OWNER'
+            owner: 'R31'
+            user: 'Bobby'
         allowUsageAnalytics:
             value: "Yes"
     register: output
   - name: Add TCP Port 22, 80, and 443 rules to F5 BIGIP-01 EXT security group
     become: no
     azure_rm_securitygroup:
-      resource_group: RG_VM-BIGIP-01
-      name: enid-bigip-01-ext-nsg
+      resource_group: RG-R31_VM-BIGIP-01
+      name: r31-bigip-01-ext-nsg
       rules:
        - name: 'SSH'
          protocol: Tcp

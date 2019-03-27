@@ -9,7 +9,7 @@
   connection: local
   vars:
     BIGIP:
-      server: enid-bigip-01.japanwest.cloudapp.azure.com
+      server: r31-bigip-01.southeastasia.cloudapp.azure.com
       server_port: 443
       validate_certs: no
       user: azureuser
@@ -22,7 +22,7 @@
   connection: local
   vars:
     BIGIP:
-      server: enid-bigip-01.japanwest.cloudapp.azure.com
+      server: r31-bigip-01.southeastasia.cloudapp.azure.com
       server_port: 443
       validate_certs: no
       user: azureuser
