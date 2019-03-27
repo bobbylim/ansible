@@ -8,7 +8,7 @@
     include_tasks: pb-azure-vm-ubuntu-01.yaml
 
 - name: STEP-02 Install Docker on Ubuntu host
-  hosts: enid-ubuntu-01.japanwest.cloudapp.azure.com
+  hosts: r31-ubuntu-01.southeastasia.cloudapp.azure.com
   gather_facts: True
   remote_user: azureuser
   become: yes
@@ -19,7 +19,7 @@
         include_tasks: pb-azure-vm-ubuntu-docker.yaml
 
 - name: STEP-03 Pull Docker Image & Create Container
-  hosts: enid-ubuntu-01.japanwest.cloudapp.azure.com
+  hosts: r31-ubuntu-01.southeastasia.cloudapp.azure.com
   gather_facts: no
   remote_user: azureuser
   become: yes
