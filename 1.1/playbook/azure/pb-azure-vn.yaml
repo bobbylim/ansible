@@ -6,33 +6,33 @@
 
   - name: Create resource group RG_VN-F5LAB
     azure_rm_resourcegroup:
-      name: RG_VN-F5LAB
-      location: japanwest
+      name: RG-R31
+      location: southeastasia
 
   - name: Create a virtual network VN-F5LAB
     azure_rm_virtualnetwork:
-      name: VN-F5LAB
-      resource_group: RG_VN-F5LAB
+      name: VN-R31
+      resource_group: RG-R31
       address_prefixes_cidr:
           - "10.6.0.0/16"
 
   - name: Create subnet VLAN_EXTERNAL
     azure_rm_subnet:
       name: VLAN_EXTERNAL
-      virtual_network_name: VN-F5LAB
-      resource_group: RG_VN-F5LAB
+      virtual_network_name: VN-R31
+      resource_group: RG-R31
       address_prefix_cidr: "10.6.10.0/24"
 
   - name: Create subnet VLAN_INTERNAL
     azure_rm_subnet:
       name: VLAN_INTERNAL
-      virtual_network_name: VN-F5LAB
-      resource_group: RG_VN-F5LAB
+      virtual_network_name: VN-R31
+      resource_group: RG-R31
       address_prefix_cidr: "10.6.20.0/24"
 
   - name: Create subnet VLAN_MGMT
     azure_rm_subnet:
       name: VLAN_MGMT
-      virtual_network_name: VN-F5LAB
-      resource_group: RG_VN-F5LAB
-      address_prefix_cidr: "10.6.255.0/24"
+      virtual_network_name: VN-R31
+      resource_group: RG-R31
+      address_prefix_cidr: "10.6.0.0/24"
