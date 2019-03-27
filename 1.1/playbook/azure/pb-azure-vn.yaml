@@ -4,12 +4,12 @@
   connection: local
   tasks:
 
-  - name: Create resource group RG_VN-F5LAB
+  - name: Create resource group RG-R31
     azure_rm_resourcegroup:
       name: RG-R31
       location: southeastasia
 
-  - name: Create a virtual network VN-F5LAB
+  - name: Create a virtual network VN-R31
     azure_rm_virtualnetwork:
       name: VN-R31
       resource_group: RG-R31
