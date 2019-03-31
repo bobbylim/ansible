@@ -9,7 +9,7 @@ Requirements:
 Clone the repository and run .sh script (follow instruction on .sh script comment)
 
 
-VERSION CHANGE:
+VERSION CHANGE: (190331_1700)
 
 1.2
 - Secure sensitive data using Ansible Vault
