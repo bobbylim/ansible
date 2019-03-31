@@ -10,6 +10,6 @@
 
   - name: Delete a resource group RG-R31_VM-UBUNTU-0702
     azure_rm_resourcegroup:
-      name: RG-R31_VM-UBUNTU-02
+      name: RG-R31_VM-UBUNTU-0702
       state: absent
       force: True

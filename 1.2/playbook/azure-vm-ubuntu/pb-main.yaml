@@ -3,6 +3,8 @@
   hosts: localhost
   gather_facts: no
   connection: local
+  vars_files:
+    - ~/github/ansible/vault/vault.yaml
   tasks:
   - name: Create VM UBUNTU-0701
     include_tasks: pb-azure-vm-ubuntu.yaml
