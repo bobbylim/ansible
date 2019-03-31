@@ -3,6 +3,7 @@ localhost
 
 [ubuntu]
 r31-ubuntu-[01:99].southeastasia.cloudapp.azure.com
+r31-ubuntu-[01:99][01:99].southeastasia.cloudapp.azure.com
 
 [ubuntu:vars]
 ansible_connection=ssh
