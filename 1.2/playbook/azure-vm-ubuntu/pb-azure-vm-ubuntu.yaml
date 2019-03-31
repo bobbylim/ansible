@@ -1,0 +1,76 @@
+
+  - name: Create resource group
+    azure_rm_resourcegroup:
+      name: RG-R31_VM-UBUNTU-01
+      location: southeastasia
+
+  - name: Create public IP address
+    azure_rm_publicipaddress:
+      resource_group: RG-R31_VM-UBUNTU-01
+      allocation_method: Static
+      name: VM-UBUNTU-01-pip
+      domain_name: r31-ubuntu-01
+    register: public_ip_address
+
+  - name: Allocated public IP address
+    debug:
+      var: public_ip_address
+
+  - name: Create Network Security Group
+    azure_rm_securitygroup:
+      resource_group: RG-R31_VM-UBUNTU-01
+      name: VM-UBUNTU-01-nsg
+      rules:
+        - name: SSH
+          protocol: Tcp
+          destination_port_range: 22
+          access: Allow
+          priority: 200
+          direction: Inbound
+        - name: HTTP
+          protocol: Tcp
+          destination_port_range: 80
+          access: Allow
+          priority: 400
+          direction: Inbound
+        - name: Port_8000-9000
+          protocol: Tcp
+          destination_port_range: 8000-9000
+          access: Allow
+          priority: 600
+          direction: Inbound
+
+  - name: Create virtual network inteface card
+    azure_rm_networkinterface:
+      resource_group: RG-R31_VM-UBUNTU-01
+      name: VM-UBUNTU-01-nic
+      virtual_network_name: '/subscriptions/9e15f7f5-cb3a-43d6-99c4-624c2faff15a/resourceGroups/RG-R31/providers/Microsoft.Network/virtualNetworks/VN-R31'
+      subnet_name: VLAN_INTERNAL
+      ip_configurations:
+        - name: VM-UBUNTU-01-ip
+          private_ip_allocation_method: Static
+          private_ip_address: 10.6.20.11
+          public_ip_address_name: VM-UBUNTU-01-pip
+      security_group: VM-UBUNTU-01-nsg
+
+  - name: Create VM
+    azure_rm_virtualmachine:
+      resource_group: RG-R31_VM-UBUNTU-01
+      name: VM-UBUNTU-01
+      vm_size: Standard_D2s_v3
+      admin_username: azureuser
+      admin_password: P@ssw0rd!1234
+      ssh_public_keys:
+        - path: '/home/azureuser/.ssh/authorized_keys'
+          key_data: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDA8MduqqbRTn3PeUdvYI08X2nY2n4uo21jwgVch2w1t2S6z7qEZMq/xjucKNMX0nXkX1+5EOLsWJsJHJ6BPpUjNFFM16mycILag9+EQGOfZOMv+gxCsU4ieFYk2uNr3Bdu82HyEkD93Zc9gN2dGbuXnfWqb8MJWTgzcuuABlQm65ozvj2Op404wpAUv1lAbY9orfOEtumZQciPsOawpHf8llQPN35jSzTi9TC0oBcJqd2mcoH9hKdCrlBG+HIr65X0sT90umacxg7DjecbSXL+BeKME8/jyq9yTJspnTgVfJYxrQvk10X2/K1OaRa7Jo+nW7OhXFvjzZv2R+zABVRh ansible@ubuntu'
+      network_interfaces: VM-UBUNTU-01-nic
+      image:
+        offer: 'UbuntuServer'
+        publisher: 'Canonical'
+        sku: '18.04-LTS'
+        version: 'latest'
+      tags:
+        owner: 'R31'
+        user: 'Bobby'
+
+  - pause: seconds=60

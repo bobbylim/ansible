@@ -1,0 +1,11 @@
+[default]
+localhost
+
+[ubuntu]
+r31-ubuntu-[01:99].southeastasia.cloudapp.azure.com
+
+[ubuntu:vars]
+ansible_connection=ssh
+ansible_user=azureuser
+
+# ansible_ssh_pass=P@ssw0rd!1234

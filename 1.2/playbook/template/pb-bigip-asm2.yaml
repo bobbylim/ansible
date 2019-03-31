@@ -1,0 +1,63 @@
+---
+
+- name: Assign ASM Security Policy, APM Access Proifle, DOS Policy to VS
+  hosts: localhost
+  connection: local
+
+  vars:
+    BIGIP:
+      server: 192.168.1.11
+      server_port: 443
+      validate_certs: no
+      user: admin
+      password: R@yanam1
+
+  tasks:
+  - name: Import and activate ASM policy
+    bigip_asm_policy:
+      provider: "{{ BIGIP }}"
+      name: SP_HACKIT_01
+      file: /R31/github/ansible/resources/ASM_SP_HACKIT_01.xml
+      active: yes
+      state: present
+    delegate_to: localhost
+
+  - name: Create LTM policy for ASM
+    bigip_policy:
+      provider: "{{ BIGIP }}"
+      name: POLICY_VS_HACKIT_01
+      state: present
+    delegate_to: localhost
+
+  - name: Create rule to enable ASM Policy
+    bigip_policy_rule:
+      provider: "{{ BIGIP }}"
+      policy: POLICY_VS_HACKIT_01
+      name: asm
+      conditions:
+        - type: all_traffic
+      actions:
+        - type: enable
+          asm_policy: SP_HACKIT_01
+    delegate_to: localhost
+
+  - name: Assign ASM (LTM Policy), APM, DOS policy to VS
+    bigip_virtual_server:
+      provider: "{{ BIGIP }}"
+      name: VS_HACKIT_01
+      destination: 192.168.1.21
+      port: 80
+      policies: POLICY_VS_HACKIT_01
+      profiles:
+        - DOS_HACKIT_01
+        - AP_TEST_01
+        - websecurity
+        - tcp
+        - http
+    delegate_to: localhost
+
+  - name: Save the running configuration of the BIG-IP
+    bigip_config:
+      provider: "{{ BIGIP }}"
+      save: yes
+    delegate_to: localhost

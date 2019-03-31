@@ -1,0 +1,64 @@
+---
+- name: Create VLAN, Self-IP, Default Route
+  hosts: all
+  connection: local
+
+  vars:
+    BIGIP:
+      server: 192.168.2.11
+      server_port: 443
+      validate_certs: no
+      user: admin
+      password: R@yanam1
+
+  tasks:
+    - name: Create VLAN External
+      bigip_vlan:
+        provider: "{{ BIGIP }}"
+        name: "VLAN_EXTERNAL"
+        untagged_interface: 1.1
+      delegate_to: localhost
+
+    - name: Create VLAN Internal
+      bigip_vlan:
+        provider: "{{ BIGIP }}"
+        name: "VLAN_INTERNAL"
+        untagged_interface: 1.2
+      delegate_to: localhost
+
+    - name: Create Self IP External
+      bigip_selfip:
+        provider: "{{ BIGIP }}"
+        address: 192.168.1.11
+        name: IP_EXTERNAL
+        netmask: 255.255.255.0
+        vlan: VLAN_EXTERNAL
+        allow_service:
+              - all
+      delegate_to: localhost
+
+    - name: Create Self IP Internal
+      bigip_selfip:
+        provider: "{{ BIGIP }}"
+        address: 10.1.20.1
+        name: IP_INTERNAL
+        netmask: 255.255.255.0
+        vlan: VLAN_INTERNAL
+        allow_service:
+          - all
+      delegate_to: localhost
+
+    - name: Create static default route
+      bigip_static_route:
+        provider: "{{ BIGIP }}"
+        destination: 0.0.0.0
+        netmask: 0.0.0.0
+        gateway_address: 192.168.1.1
+        name: DEFAULT_ROUTE
+      delegate_to: localhost
+
+    - name: Save the running configuration of the BIG-IP
+      bigip_config:
+        provider: "{{ BIGIP }}"
+        save: yes
+      delegate_to: localhost
