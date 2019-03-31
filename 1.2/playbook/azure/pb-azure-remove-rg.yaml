@@ -2,26 +2,14 @@
   hosts: localhost
   connection: local
   tasks:
-  - name: Delete a resource group RG-R31_VM-UBUNTU-01
+  - name: Delete a resource group RG-R31-07_VM-UBUNTU-0701
     azure_rm_resourcegroup:
-      name: RG-R31_VM-UBUNTU-01
+      name: RG-R31-07_VM-UBUNTU-0701
       state: absent
       force: True
 
-  - name: Delete a resource group RG-R31_VM-UBUNTU-02
+  - name: Delete a resource group RG-R31-07_VM-UBUNTU-0702
     azure_rm_resourcegroup:
-      name: RG-R31_VM-UBUNTU-02
-      state: absent
-      force: True
-
-  - name: Delete a resource group RG-R31_VM-BIGIP-01
-    azure_rm_resourcegroup:
-      name: RG-R31_VM-BIGIP-01
-      state: absent
-      force: True
-
-  - name: Delete a resource group RG-R31_VM-BIGIP-02
-    azure_rm_resourcegroup:
-      name: RG-R31_VM-BIGIP-02
+      name: RG-R31-07_VM-UBUNTU-02
       state: absent
       force: True
