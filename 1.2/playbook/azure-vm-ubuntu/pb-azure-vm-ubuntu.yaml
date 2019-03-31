@@ -53,6 +53,9 @@
           public_ip_address_name: VM-UBUNTU-0701-pip
       security_group: VM-UBUNTU-0701-nsg
 
+  - name: Get VAULT variables
+    include_vars: ~/github/ansible/vault/vault.yaml
+
   - name: Create VM
     azure_rm_virtualmachine:
       resource_group: RG-R31-07_VM-UBUNTU-0701
@@ -62,7 +65,7 @@
       admin_password: P@ssw0rd!1234
       ssh_public_keys:
         - path: '/home/azureuser/.ssh/authorized_keys'
-          key_data: "{{ sshkey }}"
+          key_data: "{{ vault_sshkey }}"
       network_interfaces: VM-UBUNTU-0701-nic
       image:
         offer: 'UbuntuServer'
