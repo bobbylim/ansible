@@ -9,7 +9,7 @@
       resource_group: RG-R31-07_VM-UBUNTU-0701
       allocation_method: Static
       name: VM-UBUNTU-0701-pip
-      domain_name: r31-ubuntu-9701
+      domain_name: r31-ubuntu-0701
     register: public_ip_address
 
   - name: Allocated public IP address
@@ -18,7 +18,7 @@
 
   - name: Create Network Security Group
     azure_rm_securitygroup:
-      resource_group: RG-R31_VM-UBUNTU-0701
+      resource_group: RG-R31-07_VM-UBUNTU-0701
       name: VM-UBUNTU-0701-nsg
       rules:
         - name: SSH
@@ -42,7 +42,7 @@
 
   - name: Create virtual network inteface card
     azure_rm_networkinterface:
-      resource_group: RG-R31_VM-UBUNTU-01
+      resource_group: RG-R31-07_VM-UBUNTU-0701
       name: VM-UBUNTU-0701-nic
       virtual_network_name: '/subscriptions/9e15f7f5-cb3a-43d6-99c4-624c2faff15a/resourceGroups/RG-R31-07/providers/Microsoft.Network/virtualNetworks/VN-R31-07'
       subnet_name: VLAN_INTERNAL
