@@ -3,9 +3,9 @@
   hosts: localhost
   gather_facts: no
   connection: local
-  include_vars: ~/github/ansible/vault/vault.yaml
   tasks:
   - name: Create VM UBUNTU-0701
+    include_vars: ~/github/ansible/vault/vault.yaml
     include_tasks: pb-azure-vm-ubuntu.yaml
 
 - name: STEP-02 Install Docker on Ubuntu host
