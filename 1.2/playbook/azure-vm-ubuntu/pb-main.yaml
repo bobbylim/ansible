@@ -1,14 +1,15 @@
 
-- name: STEP-01 Create Azure VM UBUNTU-01
+- name: STEP-01 Create Azure VM-UBUNTU-0701
   hosts: localhost
   gather_facts: no
   connection: local
+  include_vars: ~/github/ansible/vault/vault.yaml
   tasks:
-  - name: Create VM UBUNTU-01
-    include_tasks: pb-azure-vm-ubuntu-01.yaml
+  - name: Create VM UBUNTU-0701
+    include_tasks: pb-azure-vm-ubuntu.yaml
 
 - name: STEP-02 Install Docker on Ubuntu host
-  hosts: r31-ubuntu-01.southeastasia.cloudapp.azure.com
+  hosts: r31-ubuntu-0701.southeastasia.cloudapp.azure.com
   gather_facts: True
   remote_user: azureuser
   become: yes
@@ -19,7 +20,7 @@
         include_tasks: pb-azure-vm-ubuntu-docker.yaml
 
 - name: STEP-03 Pull Docker Image & Create Container
-  hosts: r31-ubuntu-01.southeastasia.cloudapp.azure.com
+  hosts: r31-ubuntu-0701.southeastasia.cloudapp.azure.com
   gather_facts: no
   remote_user: azureuser
   become: yes
