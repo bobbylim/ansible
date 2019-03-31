@@ -14,7 +14,7 @@
 
   - name: Allocated public IP address
     debug:
-      var: public_ip_address
+      msg: "FQDN = {{ public_ip_address.state.dns_settings.fqdn }} , Public IP = {{ public_ip_address.state.ip_address }}"
 
   - name: Create Network Security Group
     azure_rm_securitygroup:
