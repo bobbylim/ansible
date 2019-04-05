@@ -21,7 +21,7 @@
         bigIpVersion:
           value: "latest"
         vnetName:
-          value: "VN-R31"
+          value: "VN-R31-07"
         vnetResourceGroupName:
           value: "RG-R31"
         mgmtSubnetName:
