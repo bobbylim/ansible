@@ -1,6 +1,8 @@
 - name: STEP-01 Deploy VM-BIGP-01 using ARM template
   hosts: localhost
   connection: local
+  vars_files:
+    - ~/github/ansible/vault/vault.yaml
   tasks:
   - include_tasks: pb-azure-vm-bigip-0701.yaml
 
