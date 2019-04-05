@@ -12,7 +12,7 @@
       domain_name: r31-ubuntu-0701
     register: public_ip_address
 
-  - name: Allocated public IP address
+  - name: FQDN & Allocated public IP address
     debug:
       msg: "FQDN = {{ public_ip_address.state.dns_settings.fqdn }} , Public IP = {{ public_ip_address.state.ip_address }}"
 
