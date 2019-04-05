@@ -2,31 +2,35 @@
   hosts: localhost
   connection: local
   tasks:
-  - include_tasks: pb-azure-vm-bigip-01.yaml
+  - include_tasks: pb-azure-vm-bigip-0701.yaml
 
 - name: STEP-02 Create a VIP, pool and pool members
   hosts: localhost
   connection: local
+  vars_files:
+    - ~/github/ansible/vault/vault.yaml
   vars:
     BIGIP:
-      server: r31-bigip-01.southeastasia.cloudapp.azure.com
+      server: r31-bigip-0701.southeastasia.cloudapp.azure.com
       server_port: 443
       validate_certs: no
       user: azureuser
-      password: P@ssw0rd!1234
+      password: "{{ vault_password }}"
   tasks:
   - include_tasks: pb-azure-vm-bigip-vs-pool.yaml
 
 - name: STEP-03 Provision F5 Module
   hosts: localhost
   connection: local
+  vars_files:
+    - ~/github/ansible/vault/vault.yaml
   vars:
     BIGIP:
-      server: r31-bigip-01.southeastasia.cloudapp.azure.com
+      server: r31-bigip-0701.southeastasia.cloudapp.azure.com
       server_port: 443
       validate_certs: no
       user: azureuser
-      password: P@ssw0rd!1234
+      password: "{{ vault_password }}"
   tasks:
   - include_tasks: pb-azure-vm-bigip-resource-provisioning.yaml
 
