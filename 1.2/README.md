@@ -13,7 +13,6 @@ VERSION CHANGE: (190331_1700)
 
 1.2
 - Secure sensitive data using Ansible Vault
-- Add variable to create multiple demo setup
 
 1.1
 - Migrate 1.0 from ENID Azure to F5 Azure
