@@ -4,7 +4,7 @@
   vars_files:
     - ~/github/ansible/vault/vault.yaml
   tasks:
-  - include_tasks: pb-azure-vm-bigip-0701.yaml
+  - include_tasks: pb-azure-vm-bigip.yaml
 
 - name: STEP-02 Create a VIP, pool and pool members
   hosts: localhost
