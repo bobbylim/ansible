@@ -42,5 +42,7 @@
 - name: STEP-04 Register FQDN for Apps
   hosts: localhost
   connection: local
+  vars_files:
+    - ~/github/ansible/1.3/vars.yaml
   tasks:
   - include_tasks: pb-azure-pip-fqdn.yaml

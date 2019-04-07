@@ -1,5 +1,5 @@
 
-  - name: Register FQDN > r31-hackazon-0701.{{ azure.vn_location }}.cloudapp.azure.com
+  - name: Register FQDN > {{ bigip.vs_hackazon_01_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com
     azure_rm_publicipaddress:
       resource_group: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
       name: "{{ bigip.vm_dnslabel }}-ext-pip0"
@@ -7,7 +7,7 @@
       domain_name: "{{ bigip.vs_hackazon_01_dnslabel }}"
     register: "{{ bigip.vs_hackazon_01_dnslabel }}"
 
-  - name: Register FQDN > r31-dvwa-0701.{{ azure.vn_location }}.cloudapp.azure.com
+  - name: Register FQDN > {{ bigip.vs_dvwa_01_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com
     azure_rm_publicipaddress:
       resource_group: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
       name: "{{ bigip.vm_dnslabel }}-ext-pip1"
@@ -15,7 +15,7 @@
       domain_name: "{{ bigip.vs_dvwa_01_dnslabel }}"
     register: "{{ bigip.vs_dvwa_01_dnslabel }}"
 
-  - name: Register FQDN > r31-juiceshop-0701.{{ azure.vn_location }}.cloudapp.azure.com
+  - name: Register FQDN > {{ bigip.vs_juiceshop_01_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com
     azure_rm_publicipaddress:
       resource_group: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
       name: "{{ bigip.vm_dnslabel }}-ext-pip2"
