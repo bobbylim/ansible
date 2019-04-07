@@ -9,7 +9,7 @@
       resource_group: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
       allocation_method: Static
       name: "{{ ubuntu.vm_name | upper }}-pip"
-      domain_name: {{ ubuntu.vm_dnslabel }}
+      domain_name: "{{ ubuntu.vm_dnslabel }}"
     register: public_ip_address
 
   - name: FQDN & Allocated public IP address
