@@ -5,12 +5,12 @@
   vars_files:
     - ~/github/ansible/1.3/vars.yaml
   tasks:
-  - name: Create resource group {{ azure.vn_name }}
+  - name: Create resource group {{ azure.vn_rg }}
     azure_rm_resourcegroup:
-      name: {{ azure.vn_rg }}
-      location: {{ azure.vn_location }}
+      name: "{{ azure.vn_rg }}"
+      location: "{{ azure.vn_location }}"
 
-  - name: Create a virtual {{ azure.vn_name }}
+  - name: Create a virtual network {{ azure.vn_name }}
     azure_rm_virtualnetwork:
       name: "{{ azure.vn_name }}"
       resource_group: "{{ azure.vn_rg }}"

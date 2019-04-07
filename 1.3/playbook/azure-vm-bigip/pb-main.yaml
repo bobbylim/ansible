@@ -1,4 +1,4 @@
-- name: STEP-01 Deploy VM-BIGP-01 using ARM template
+- name: STEP-01 Deploy {{ bigip.vm_name }} using ARM template
   hosts: localhost
   connection: local
   vars_files:
@@ -14,7 +14,7 @@
     - ~/github/ansible/vault/vault.yaml
   vars:
     BIGIP:
-      server: r31-bigip-0701.southeastasia.cloudapp.azure.com
+      server: "{{ bigip.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
       server_port: 443
       validate_certs: no
       user: azureuser
@@ -29,7 +29,7 @@
     - ~/github/ansible/vault/vault.yaml
   vars:
     BIGIP:
-      server: r31-bigip-0701.southeastasia.cloudapp.azure.com
+      server: "{{ bigip.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
       server_port: 443
       validate_certs: no
       user: azureuser

@@ -2,7 +2,7 @@
   - name: Deploy F5 BIGIP-0701 using ARM template
     azure_rm_deployment:
       state: present
-      resource_group_name: 'RG-R31_VM-BIGIP-0701'
+      resource_group_name: "{{ bigip.vm_rg }}"
       location: 'southeastasia'
       template_link: 'https://raw.githubusercontent.com/F5Networks/f5-azure-arm-templates/master/supported/standalone/3nic/existing-stack/payg/azuredeploy.json'
       parameters:
@@ -11,9 +11,9 @@
         adminPasswordOrKey:
           value: "{{ vault_password }}"
         dnsLabel:
-          value: 'r31-bigip-0701'
+          value: "{{ bigip.vm_dnslabel }}"
         instanceName:
-          value: 'vm-bigip-0701'
+          value: "{{ bigip.vm_name }}"
         instanceType:
           value: "Standard_DS3_v2"
         imageName:
@@ -21,23 +21,23 @@
         bigIpVersion:
           value: "latest"
         vnetName:
-          value: "VN-R31-07"
+          value: "{{ azure.vn_name }}"
         vnetResourceGroupName:
-          value: "RG-R31"
+          value: "{{ azure.vn_rg }}"
         mgmtSubnetName:
           value: "VLAN_MGMT"
         mgmtIpAddress:
-          value: "10.7.0.10"
+          value: "{{ bigip.ip_mgmt }}"
         numberOfExternalIps:
           value: 4
         externalSubnetName:
           value: "VLAN_EXTERNAL"
         externalIpAddressRangeStart:
-          value: "10.7.10.10"
+          value: "{{ bigip.ip_ext }}"
         internalSubnetName:
           value: "VLAN_INTERNAL"
         internalIpAddress:
-          value: "10.7.20.10"
+          value: "{{ bigip.ip_int }}"
         avSetChoice:
           value: "CREATE_NEW"
         ntpServer:
@@ -48,13 +48,8 @@
           value: "*"
         tagValues:
           value:
-            Name: 'vm-bigip-0701'
-            Type: 'f5'
-            application: 'APP'
-            cost: 'COST'
-            environment: 'ENV'
-            group: 'GROUP'
-            owner: 'R31'
+            type: 'bigip'
+            id: 'R31'
             user: 'Bobby'
         allowUsageAnalytics:
             value: "Yes"
