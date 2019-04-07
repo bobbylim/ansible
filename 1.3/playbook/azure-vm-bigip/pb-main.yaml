@@ -12,6 +12,7 @@
   connection: local
   vars_files:
     - ~/github/ansible/vault/vault.yaml
+    - ~/github/ansible/1.3/vars.yaml
   vars:
     BIGIP:
       server: "{{ bigip.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
@@ -27,6 +28,7 @@
   connection: local
   vars_files:
     - ~/github/ansible/vault/vault.yaml
+    - ~/github/ansible/1.3/vars.yaml
   vars:
     BIGIP:
       server: "{{ bigip.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
