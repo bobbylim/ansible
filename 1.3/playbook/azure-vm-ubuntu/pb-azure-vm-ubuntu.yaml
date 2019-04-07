@@ -1,15 +1,15 @@
 
   - name: Create resource group
     azure_rm_resourcegroup:
-      name: RG-R31_VM-UBUNTU-0701
+      name: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
       location: southeastasia
 
   - name: Create public IP address
     azure_rm_publicipaddress:
-      resource_group: RG-R31_VM-UBUNTU-0701
+      resource_group: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
       allocation_method: Static
-      name: VM-UBUNTU-0701-pip
-      domain_name: r31-ubuntu-0701
+      name: "{{ ubuntu.vm_name | upper }}-pip"
+      domain_name: {{ ubuntu.vm_dnslabel }}
     register: public_ip_address
 
   - name: FQDN & Allocated public IP address
@@ -18,8 +18,8 @@
 
   - name: Create Network Security Group
     azure_rm_securitygroup:
-      resource_group: RG-R31_VM-UBUNTU-0701
-      name: VM-UBUNTU-0701-nsg
+      resource_group: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
+      name: "{{ ubuntu.vm_name | upper }}-nsg"
       rules:
         - name: SSH
           protocol: Tcp
@@ -42,16 +42,16 @@
 
   - name: Create virtual network inteface card
     azure_rm_networkinterface:
-      resource_group: RG-R31_VM-UBUNTU-0701
-      name: VM-UBUNTU-0701-nic
-      virtual_network_name: '/subscriptions/9e15f7f5-cb3a-43d6-99c4-624c2faff15a/resourceGroups/RG-R31/providers/Microsoft.Network/virtualNetworks/VN-R31-07'
+      resource_group: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
+      name: "{{ ubuntu.vm_name | upper }}-nic"
+      virtual_network_name: '/subscriptions/{{ azure.subs }}/resourceGroups/{{ azure.vn_rg }}/providers/Microsoft.Network/virtualNetworks/VN-R31-07'
       subnet_name: VLAN_INTERNAL
       ip_configurations:
-        - name: VM-UBUNTU-0701-ip
+        - name: "{{ ubuntu.vm_name | upper }}-ip"
           private_ip_allocation_method: Static
           private_ip_address: {{ ubuntu.ip_int }}
-          public_ip_address_name: VM-UBUNTU-0701-pip
-      security_group: VM-UBUNTU-0701-nsg
+          public_ip_address_name: "{{ ubuntu.vm_name | upper }}-pip"
+      security_group: "{{ ubuntu.vm_name | upper }}-nsg"
 
   - name: Create VM
     azure_rm_virtualmachine:
