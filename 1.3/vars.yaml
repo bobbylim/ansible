@@ -12,7 +12,6 @@ azure:
 bigip:
   vm_name: "vm-bigip-0701"
   vm_dnslabel: "r31-bigip-0701"
-  vm_rg: "RG-R31_VM-BIGIP-0701"
   ip_mgmt: "10.7.0.10"
   ip_ext: "10.7.10.10"
   ip_int: "10.7.20.10"
@@ -23,5 +22,4 @@ bigip:
 ubuntu:
   vm_name: "vm-ubuntu-0701"
   vm_dnslabel: "r31-ubuntu-0701"
-  vm_rg: "RG-R31_VM-UBUNTU-0701"
   ip_int: "10.7.20.100"
