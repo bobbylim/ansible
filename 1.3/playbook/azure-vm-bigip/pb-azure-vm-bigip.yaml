@@ -58,7 +58,7 @@
     become: no
     azure_rm_securitygroup:
       resource_group: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
-      name: "{{ bigip.vm_dnslabel }}-ext-nsg"
+      name: "{{ bigip.vm_dnslabel | lower }}-ext-nsg"
       rules:
        - name: 'SSH'
          protocol: Tcp
