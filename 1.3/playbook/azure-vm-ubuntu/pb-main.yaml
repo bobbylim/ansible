@@ -5,12 +5,15 @@
   connection: local
   vars_files:
     - ~/github/ansible/vault/vault.yaml
+    - ~/github/ansible/1.3/vars.yaml
   tasks:
   - name: Create VM UBUNTU-0701
     include_tasks: pb-azure-vm-ubuntu.yaml
 
 - name: STEP-02 Install Docker on Ubuntu host
-  hosts: r31-ubuntu-0701.southeastasia.cloudapp.azure.com
+  vars_files:
+    - ~/github/ansible/1.3/vars.yaml
+  hosts: {{ ubuntu.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com
   gather_facts: True
   remote_user: azureuser
   become: yes
@@ -21,7 +24,9 @@
         include_tasks: pb-azure-vm-ubuntu-docker.yaml
 
 - name: STEP-03 Pull Docker Image & Create Container
-  hosts: r31-ubuntu-0701.southeastasia.cloudapp.azure.com
+  vars_files:
+    - ~/github/ansible/1.3/vars.yaml
+  hosts: {{ ubuntu.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com
   gather_facts: no
   remote_user: azureuser
   become: yes
