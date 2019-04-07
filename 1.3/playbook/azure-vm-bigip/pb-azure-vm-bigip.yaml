@@ -1,5 +1,5 @@
 
-  - name: Deploy F5 BIGIP-0701 using ARM template
+  - name: Deploy {{ bigip.vm_name | upper }} using ARM template
     azure_rm_deployment:
       state: present
       resource_group_name: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
@@ -54,7 +54,7 @@
         allowUsageAnalytics:
             value: "Yes"
     register: output
-  - name: Add TCP Port 22, 80, and 443 rules to F5 BIGIP-0701 EXT security group
+  - name: Add TCP Port 22, 80, and 443 rules to {{ bigip.vm_name | upper }} EXT security group
     become: no
     azure_rm_securitygroup:
       resource_group: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
