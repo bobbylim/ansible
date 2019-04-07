@@ -2,7 +2,7 @@
   - name: Deploy F5 BIGIP-0701 using ARM template
     azure_rm_deployment:
       state: present
-      resource_group_name: "{{ bigip.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
+      resource_group_name: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
       location: 'southeastasia'
       template_link: 'https://raw.githubusercontent.com/F5Networks/f5-azure-arm-templates/master/supported/standalone/3nic/existing-stack/payg/azuredeploy.json'
       parameters:
