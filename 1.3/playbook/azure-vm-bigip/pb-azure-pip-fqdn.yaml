@@ -20,5 +20,5 @@
       resource_group: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
       name: "{{ bigip.vm_dnslabel }}-ext-pip2"
       allocation_method: Static
-      domain_name: "{{ bigip.vs_juiceshop_01_dnslabel }}"1
+      domain_name: "{{ bigip.vs_juiceshop_01_dnslabel }}"
     register: juiceshop-0701
