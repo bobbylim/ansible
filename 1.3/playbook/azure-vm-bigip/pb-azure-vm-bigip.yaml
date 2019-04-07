@@ -1,0 +1,85 @@
+
+  - name: Deploy F5 BIGIP-0701 using ARM template
+    azure_rm_deployment:
+      state: present
+      resource_group_name: 'RG-R31_VM-BIGIP-0701'
+      location: 'southeastasia'
+      template_link: 'https://raw.githubusercontent.com/F5Networks/f5-azure-arm-templates/master/supported/standalone/3nic/existing-stack/payg/azuredeploy.json'
+      parameters:
+        adminUsername:
+          value: "azureuser"
+        adminPasswordOrKey:
+          value: "{{ vault_password }}"
+        dnsLabel:
+          value: 'r31-bigip-0701'
+        instanceName:
+          value: 'vm-bigip-0701'
+        instanceType:
+          value: "Standard_DS3_v2"
+        imageName:
+          value: "Best200Mbps"
+        bigIpVersion:
+          value: "latest"
+        vnetName:
+          value: "VN-R31-07"
+        vnetResourceGroupName:
+          value: "RG-R31"
+        mgmtSubnetName:
+          value: "VLAN_MGMT"
+        mgmtIpAddress:
+          value: "10.7.0.10"
+        numberOfExternalIps:
+          value: 4
+        externalSubnetName:
+          value: "VLAN_EXTERNAL"
+        externalIpAddressRangeStart:
+          value: "10.7.10.10"
+        internalSubnetName:
+          value: "VLAN_INTERNAL"
+        internalIpAddress:
+          value: "10.7.20.10"
+        avSetChoice:
+          value: "CREATE_NEW"
+        ntpServer:
+          value: "0.pool.ntp.org"
+        timeZone:
+          value: "Asia/Jakarta"
+        restrictedSrcAddress:
+          value: "*"
+        tagValues:
+          value:
+            Name: 'vm-bigip-0701'
+            Type: 'f5'
+            application: 'APP'
+            cost: 'COST'
+            environment: 'ENV'
+            group: 'GROUP'
+            owner: 'R31'
+            user: 'Bobby'
+        allowUsageAnalytics:
+            value: "Yes"
+    register: output
+  - name: Add TCP Port 22, 80, and 443 rules to F5 BIGIP-0701 EXT security group
+    become: no
+    azure_rm_securitygroup:
+      resource_group: RG-R31_VM-BIGIP-0701
+      name: r31-bigip-0701-ext-nsg
+      rules:
+       - name: 'SSH'
+         protocol: Tcp
+         destination_port_range: '20'
+         access: Allow
+         direction: Inbound
+         priority: '100'
+       - name: 'HTTP'
+         protocol: Tcp
+         destination_port_range: '80'
+         access: Allow
+         direction: Inbound
+         priority: '200'
+       - name: 'HTTPS'
+         protocol: Tcp
+         destination_port_range: '443'
+         access: Allow
+         direction: Inbound
+         priority: '300'

@@ -1,0 +1,35 @@
+- name: Delete a resouce group
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Delete a resource group RG-R31_VM-UBUNTU-01
+    azure_rm_resourcegroup:
+      name: RG-R31_VM-UBUNTU-01
+      state: absent
+      force: True
+    async: 600
+    poll: 10
+
+  - name: Delete a resource group RG-R31_VM-UBUNTU-02
+    azure_rm_resourcegroup:
+      name: RG-R31_VM-UBUNTU-02
+      state: absent
+      force: True
+    async: 600
+    poll: 10
+
+  - name: Delete a resource group RG-R31_VM-BIGIP-01
+    azure_rm_resourcegroup:
+      name: RG-R31_VM-BIGIP-01
+      state: absent
+      force: True
+    async: 600
+    poll: 10
+
+  - name: Delete a resource group RG-R31_VM-BIGIP-02
+    azure_rm_resourcegroup:
+      name: RG-R31_VM-BIGIP-02
+      state: absent
+      force: True
+    async: 600
+    poll: 10

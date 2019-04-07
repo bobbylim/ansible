@@ -1,0 +1,76 @@
+
+  - name: Create resource group
+    azure_rm_resourcegroup:
+      name: RG-R31_VM-UBUNTU-0701
+      location: southeastasia
+
+  - name: Create public IP address
+    azure_rm_publicipaddress:
+      resource_group: RG-R31_VM-UBUNTU-0701
+      allocation_method: Static
+      name: VM-UBUNTU-0701-pip
+      domain_name: r31-ubuntu-0701
+    register: public_ip_address
+
+  - name: FQDN & Allocated public IP address
+    debug:
+      msg: "FQDN = {{ public_ip_address.state.dns_settings.fqdn }} , Public IP = {{ public_ip_address.state.ip_address }}"
+
+  - name: Create Network Security Group
+    azure_rm_securitygroup:
+      resource_group: RG-R31_VM-UBUNTU-0701
+      name: VM-UBUNTU-0701-nsg
+      rules:
+        - name: SSH
+          protocol: Tcp
+          destination_port_range: 22
+          access: Allow
+          priority: 200
+          direction: Inbound
+        - name: HTTP
+          protocol: Tcp
+          destination_port_range: 80
+          access: Allow
+          priority: 400
+          direction: Inbound
+        - name: Port_8000-9000
+          protocol: Tcp
+          destination_port_range: 8000-9000
+          access: Allow
+          priority: 600
+          direction: Inbound
+
+  - name: Create virtual network inteface card
+    azure_rm_networkinterface:
+      resource_group: RG-R31_VM-UBUNTU-0701
+      name: VM-UBUNTU-0701-nic
+      virtual_network_name: '/subscriptions/9e15f7f5-cb3a-43d6-99c4-624c2faff15a/resourceGroups/RG-R31/providers/Microsoft.Network/virtualNetworks/VN-R31-07'
+      subnet_name: VLAN_INTERNAL
+      ip_configurations:
+        - name: VM-UBUNTU-0701-ip
+          private_ip_allocation_method: Static
+          private_ip_address: 10.7.20.11
+          public_ip_address_name: VM-UBUNTU-0701-pip
+      security_group: VM-UBUNTU-0701-nsg
+
+  - name: Create VM
+    azure_rm_virtualmachine:
+      resource_group: RG-R31_VM-UBUNTU-0701
+      name: VM-UBUNTU-0701
+      vm_size: Standard_D2s_v3
+      admin_username: azureuser
+      admin_password: "{{ vault_password }}"
+      ssh_public_keys:
+        - path: '/home/azureuser/.ssh/authorized_keys'
+          key_data: "{{ vault_sshkey }}"
+      network_interfaces: VM-UBUNTU-0701-nic
+      image:
+        offer: 'UbuntuServer'
+        publisher: 'Canonical'
+        sku: '18.04-LTS'
+        version: 'latest'
+      tags:
+        owner: 'R31'
+        user: 'Bobby'
+
+  - pause: seconds=60

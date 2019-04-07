@@ -1,0 +1,36 @@
+
+  - name: Pull image HACKAZON
+    docker_image:
+      name: ianwijaya/hackazon
+
+  - name: Pull image JUICE-SHOP
+    docker_image:
+      name: bkimminich/juice-shop
+
+  - name: Pull image DVWA
+    docker_image:
+      name: vulnerables/web-dvwa
+
+  - name: Create Container HACKAZON-01
+    docker_container:
+      name: HACKAZON-01
+      image: ianwijaya/hackazon
+      ports: 8011:80
+
+  - name: Create Container HACAKZON-02
+    docker_container:
+      name: HACKAZON-02
+      image: ianwijaya/hackazon
+      ports: 8012:80
+
+  - name: Create Container DVWA-01
+    docker_container:
+      name: DVWA-01
+      image: vulnerables/web-dvwa
+      ports: 8021:80
+
+  - name: Create Container JUICESHOP-01
+    docker_container:
+      name: JUICESHOP-01
+      image: bkimminich/juice-shop
+      ports: 8031:3000
