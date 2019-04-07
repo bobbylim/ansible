@@ -1,4 +1,5 @@
 azure:
+  tag_id: "R31"
   subs: "9e15f7f5-cb3a-43d6-99c4-624c2faff15a"
   vn_rg: "RG-R31"
   vn_name: "VN-R31-0701"

@@ -17,11 +17,11 @@
         name: "{{ item.name }}"
         port: "{{ item.port }}"
       with_items:
-        - host: 10.7.20.11
-          name: 10.7.20.11
+        - host: "{{ ubuntu.ip_int }}"
+          name: "{{ ubuntu.ip_int }}"
           port: 8011
-        - host: 10.7.20.11
-          name: 10.7.20.11
+        - host: "{{ ubuntu.ip_int }}"
+          name: "{{ ubuntu.ip_int }}"
           port: 8012
       delegate_to: localhost
 
@@ -42,8 +42,8 @@
         name: "{{ item.name }}"
         port: "{{ item.port }}"
       with_items:
-        - host: 10.7.20.11
-          name: 10.7.20.11
+        - host: "{{ ubuntu.ip_int }}"
+          name: "{{ ubuntu.ip_int }}"
           port: 8021
       delegate_to: localhost
 
@@ -64,8 +64,8 @@
         name: "{{ item.name }}"
         port: "{{ item.port }}"
       with_items:
-        - host: 10.7.20.11
-          name: 10.7.20.11
+        - host: "{{ ubuntu.ip_int }}"
+          name: "{{ ubuntu.ip_int }}"
           port: 8031
       delegate_to: localhost
 
@@ -73,7 +73,7 @@
       bigip_virtual_server:
         provider: "{{ BIGIP }}"
         description: Virtual Server HACKAZON
-        destination: 10.7.10.11
+        destination: "{{ bigip.vs_hackazon_01_ip }}"
         name: VS_HACKAZON_01
         pool: POOL_HACKAZON
         port: 80
@@ -86,7 +86,7 @@
       bigip_virtual_server:
         provider: "{{ BIGIP }}"
         description: Virtual Server DVWA
-        destination: 10.7.10.12
+        destination:  "{{ bigip.vs_dvwa_01_ip }}"
         name: VS_DVWA_01
         pool: POOL_DVWA
         port: 80
@@ -99,7 +99,7 @@
       bigip_virtual_server:
         provider: "{{ BIGIP }}"
         description: Virtual Server JUICESHOP
-        destination: 10.7.10.13
+        destination:  "{{ bigip.vs_juiceshop_01_ip }}"
         name: VS_JUICESHOP_01
         pool: POOL_JUICESHOP
         port: 80
