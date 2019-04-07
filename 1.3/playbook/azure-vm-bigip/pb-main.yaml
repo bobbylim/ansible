@@ -3,6 +3,7 @@
   connection: local
   vars_files:
     - ~/github/ansible/vault/vault.yaml
+    - ~/github/ansible/1.3/vars.yaml
   tasks:
   - include_tasks: pb-azure-vm-bigip.yaml
 
