@@ -1,5 +1,5 @@
 
-  - name: Register FQDN > r31-hackazon-0701.southeastasia.cloudapp.azure.com
+  - name: Register FQDN > r31-hackazon-0701.{{ azure.vn_location }}.cloudapp.azure.com
     azure_rm_publicipaddress:
       resource_group: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
       name: r31-bigip-0701-ext-pip0
@@ -7,7 +7,7 @@
       domain_name: r31-hackazon-0701
     register: hackazon-0701
 
-  - name: Register FQDN > r31-dvwa-0701.southeastasia.cloudapp.azure.com
+  - name: Register FQDN > r31-dvwa-0701.{{ azure.vn_location }}.cloudapp.azure.com
     azure_rm_publicipaddress:
       resource_group: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
       name: r31-bigip-0701-ext-pip1
@@ -15,7 +15,7 @@
       domain_name: r31-dvwa-0701
     register: dvwa-0701
 
-  - name: Register FQDN > r31-juiceshop-0701.southeastasia.cloudapp.azure.com
+  - name: Register FQDN > r31-juiceshop-0701.{{ azure.vn_location }}.cloudapp.azure.com
     azure_rm_publicipaddress:
       resource_group: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
       name: r31-bigip-0701-ext-pip2
