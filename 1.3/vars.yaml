@@ -18,6 +18,9 @@ bigip:
   vs_hackazon_01_ip: "10.7.10.11"
   vs_dvwa_01_ip: "10.7.10.12"
   vs_juiceshop_01_ip: "10.7.10.13"
+  vs_hackazon_01_dnslabel: "r31-hackazon-0701"
+  vs_dvwa_01_dnslabel: "r31-dvwa-0701"
+  vs_juiceshop_01_dnslabel: "r31-juiceshop-0701"
 
 ubuntu:
   vm_name: "vm-ubuntu-0701"
