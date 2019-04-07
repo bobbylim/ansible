@@ -16,6 +16,9 @@ bigip:
   ip_mgmt: "10.7.0.10"
   ip_ext: "10.7.10.10"
   ip_int: "10.7.20.10"
+  vs_hackazon_01_ip: "10.7.10.11"
+  vs_dvwa_01_ip: "10.7.10.12"
+  vs_juiceshop_01_ip: "10.7.10.13"
 
 ubuntu:
   vm_name: "vm-ubuntu-0701"
