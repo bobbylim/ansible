@@ -57,7 +57,7 @@
   - name: Add TCP Port 22, 80, and 443 rules to F5 BIGIP-0701 EXT security group
     become: no
     azure_rm_securitygroup:
-      resource_group: "{{ bigip.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
+      resource_group: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
       name: "{{ bigip.vm_dnslabel }}-ext-nsg"
       rules:
        - name: 'SSH'
