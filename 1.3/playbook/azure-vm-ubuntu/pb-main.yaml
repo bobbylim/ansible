@@ -13,7 +13,7 @@
 - name: STEP-02 Install Docker on Ubuntu host
   vars_files:
     - ~/github/ansible/1.3/vars.yaml
-  hosts: {{ ubuntu.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com
+  hosts: "{{ ubuntu.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
   gather_facts: True
   remote_user: azureuser
   become: yes
@@ -26,7 +26,7 @@
 - name: STEP-03 Pull Docker Image & Create Container
   vars_files:
     - ~/github/ansible/1.3/vars.yaml
-  hosts: {{ ubuntu.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com
+  hosts: "{{ ubuntu.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
   gather_facts: no
   remote_user: azureuser
   become: yes
