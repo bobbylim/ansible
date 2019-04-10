@@ -1,15 +1,17 @@
 - name: Delete a resouce group
   hosts: localhost
   connection: local
+  vars_files:
+    - ~/github/ansible/1.3/vars.yaml
   tasks:
-  - name: Delete a resource group RG-R31_VM-UBUNTU-0701
+  - name: Delete a resource group {{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}
     azure_rm_resourcegroup:
-      name: RG-R31_VM-UBUNTU-0701
+      name: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
       state: absent
       force: True
 
-  - name: Delete a resource group RG-R31_VM-BIGIP-0702
+  - name: Delete a resource group {{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}
     azure_rm_resourcegroup:
-      name: RG-R31_VM-BIGIP-0701
+      name: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
       state: absent
       force: True
