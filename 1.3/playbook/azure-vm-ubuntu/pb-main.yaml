@@ -9,6 +9,9 @@
   tasks:
   - name: Create VM UBUNTU-0701
     include_tasks: pb-azure-vm-ubuntu.yaml
+    tags:
+      - az-vm
+      - az-vm-ubuntu
 
 - name: STEP-02 Install Docker on Ubuntu host
   vars_files:
