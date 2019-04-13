@@ -6,6 +6,9 @@
       tags:
         id: 'R31'
         user: 'Bobby'
+    tags:
+      - az-vm
+      - az-vm-ubuntu
 
   - name: Create public IP address
     azure_rm_publicipaddress:
@@ -14,10 +17,16 @@
       name: "{{ ubuntu.vm_name | upper }}-pip"
       domain_name: "{{ ubuntu.vm_dnslabel }}"
     register: public_ip_address
+    tags:
+      - az-vm
+      - az-vm-ubuntu
 
   - name: FQDN & Allocated public IP address
     debug:
       msg: "FQDN = {{ public_ip_address.state.dns_settings.fqdn }} , Public IP = {{ public_ip_address.state.ip_address }}"
+    tags:
+      - az-vm
+      - az-vm-ubuntu
 
   - name: Create Network Security Group
     azure_rm_securitygroup:
@@ -42,6 +51,9 @@
           access: Allow
           priority: 600
           direction: Inbound
+    tags:
+      - az-vm
+      - az-vm-ubuntu
 
   - name: Create virtual network inteface card
     azure_rm_networkinterface:
@@ -55,6 +67,9 @@
           private_ip_address: "{{ ubuntu.ip_int }}"
           public_ip_address_name: "{{ ubuntu.vm_name | upper }}-pip"
       security_group: "{{ ubuntu.vm_name | upper }}-nsg"
+    tags:
+      - az-vm
+      - az-vm-ubuntu
 
   - name: Create VM
     azure_rm_virtualmachine:
@@ -76,5 +91,8 @@
         type: 'ubuntu'
         id: 'R31'
         user: 'Bobby'
+    tags:
+      - az-vm
+      - az-vm-ubuntu
 
   - pause: seconds=30
