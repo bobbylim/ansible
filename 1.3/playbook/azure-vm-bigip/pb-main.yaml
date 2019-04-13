@@ -2,8 +2,8 @@
   hosts: localhost
   connection: local
   vars_files:
-    - ~/github/ansible/vault/vault.yaml
-    - ~/github/ansible/1.3/vars.yaml
+    - ../../../vault.yaml
+    - ../../vars.yaml
   tasks:
   - include_tasks: pb-azure-vm-bigip.yaml
 
@@ -11,8 +11,8 @@
   hosts: localhost
   connection: local
   vars_files:
-    - ~/github/ansible/vault/vault.yaml
-    - ~/github/ansible/1.3/vars.yaml
+    - ../../../vault.yaml
+    - ../../vars.yaml
   vars:
     BIGIP:
       server: "{{ bigip.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
@@ -27,8 +27,8 @@
   hosts: localhost
   connection: local
   vars_files:
-    - ~/github/ansible/vault/vault.yaml
-    - ~/github/ansible/1.3/vars.yaml
+    - ../../../vault.yaml
+    - ../../vars.yaml
   vars:
     BIGIP:
       server: "{{ bigip.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
@@ -43,6 +43,6 @@
   hosts: localhost
   connection: local
   vars_files:
-    - ~/github/ansible/1.3/vars.yaml
+    - ../../vars.yaml
   tasks:
   - include_tasks: pb-azure-pip-fqdn.yaml
