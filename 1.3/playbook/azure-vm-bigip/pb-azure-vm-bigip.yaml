@@ -78,3 +78,10 @@
          access: Allow
          direction: Inbound
          priority: '300'
+
+  - name: Add tags to {{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}
+    azure_rm_resourcegroup:
+      name: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
+      tags:
+        id: 'R31'
+        user: 'Bobby'
