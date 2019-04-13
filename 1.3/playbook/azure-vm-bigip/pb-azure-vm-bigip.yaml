@@ -54,6 +54,10 @@
         allowUsageAnalytics:
             value: "Yes"
     register: output
+    tags:
+      - az-vm
+      - az-vm-bigip
+
   - name: Add TCP Port 22, 80, and 443 rules to {{ bigip.vm_name | upper }} EXT security group
     become: no
     azure_rm_securitygroup:
@@ -78,6 +82,9 @@
          access: Allow
          direction: Inbound
          priority: '300'
+    tags:
+      - az-vm
+      - az-vm-bigip
 
   - name: Add tags to {{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}
     azure_rm_resourcegroup:
@@ -85,3 +92,6 @@
       tags:
         id: 'R31'
         user: 'Bobby'
+    tags:
+      - az-vm
+      - az-vm-bigip
