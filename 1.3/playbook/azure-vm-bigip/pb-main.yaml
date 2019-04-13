@@ -2,7 +2,7 @@
   hosts: localhost
   connection: local
   vars_files:
-    - ../../../vault.yaml
+    - ../../../vault/vault.yaml
     - ../../vars.yaml
   tasks:
   - include_tasks: pb-azure-vm-bigip.yaml
@@ -11,7 +11,7 @@
   hosts: localhost
   connection: local
   vars_files:
-    - ../../../vault.yaml
+    - ../../../vault/vault.yaml
     - ../../vars.yaml
   vars:
     BIGIP:
@@ -27,7 +27,7 @@
   hosts: localhost
   connection: local
   vars_files:
-    - ../../../vault.yaml
+    - ../../../vault/vault.yaml
     - ../../vars.yaml
   vars:
     BIGIP:
