@@ -25,6 +25,8 @@
   tasks:
       - name: Install Docker
         include_tasks: pb-azure-vm-ubuntu-docker.yaml
+        tags:
+          - ubuntu-docker
 
 - name: STEP-03 Pull Docker Image & Create Container
   vars_files:
@@ -38,3 +40,5 @@
   tasks:
       - name: Pull Docker Image & Create Container
         include_tasks: pb-azure-vm-ubuntu-docker-container.yaml
+        tags:
+          - ubuntu-docker-image

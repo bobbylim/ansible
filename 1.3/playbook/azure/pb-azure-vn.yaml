@@ -9,6 +9,8 @@
     azure_rm_resourcegroup:
       name: "{{ azure.vn_rg }}"
       location: "{{ azure.vn_location }}"
+    tags:
+      - az-rg
 
   - name: Create a virtual network {{ azure.vn_name }}
     azure_rm_virtualnetwork:
@@ -16,6 +18,8 @@
       resource_group: "{{ azure.vn_rg }}"
       address_prefixes_cidr:
           - "{{ azure.vn_address }}"
+    tags:
+      - az-vn
 
   - name: Create subnet VLAN_EXTERNAL
     azure_rm_subnet:
@@ -23,6 +27,8 @@
       virtual_network_name: "{{ azure.vn_name }}"
       resource_group: "{{ azure.vn_rg }}"
       address_prefix_cidr: "{{ azure.vlan_ext }}"
+    tags:
+      - az-vlan
 
   - name: Create subnet VLAN_INTERNAL
     azure_rm_subnet:
@@ -30,6 +36,8 @@
       virtual_network_name: "{{ azure.vn_name }}"
       resource_group: "{{ azure.vn_rg }}"
       address_prefix_cidr: "{{ azure.vlan_int }}"
+    tags:
+      - az-vlan
 
   - name: Create subnet VLAN_MGMT
     azure_rm_subnet:
@@ -37,3 +45,5 @@
       virtual_network_name: "{{ azure.vn_name }}"
       resource_group: "{{ azure.vn_rg }}"
       address_prefix_cidr: "{{ azure.vlan_mgmt }}"
+    tags:
+      - az-vlan
