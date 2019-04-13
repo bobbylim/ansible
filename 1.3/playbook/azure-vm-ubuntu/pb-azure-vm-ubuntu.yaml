@@ -3,6 +3,9 @@
     azure_rm_resourcegroup:
       name: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
       location: southeastasia
+      tags:
+        id: 'R31'
+        user: 'Bobby'
 
   - name: Create public IP address
     azure_rm_publicipaddress:
