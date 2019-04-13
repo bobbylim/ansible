@@ -25,9 +25,6 @@
       password: "{{ vault_password }}"
   tasks:
   - include_tasks: pb-azure-vm-bigip-vs-pool.yaml
-    tags:
-      - f5-config
-      - f5-config-vs
 
 - name: STEP-03 Provision F5 Module
   hosts: localhost
@@ -44,9 +41,6 @@
       password: "{{ vault_password }}"
   tasks:
   - include_tasks: pb-azure-vm-bigip-resource-provisioning.yaml
-    tags:
-      - f5-config
-      - f5-config-rp
 
 - name: STEP-04 Register FQDN for Apps
   hosts: localhost
@@ -55,7 +49,3 @@
     - ../../vars.yaml
   tasks:
   - include_tasks: pb-azure-pip-fqdn.yaml
-    tags:
-      - f5-config
-      - f5-config-vs
-      - f5-config-vs-fqdn

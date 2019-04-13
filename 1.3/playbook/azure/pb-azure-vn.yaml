@@ -9,6 +9,9 @@
     azure_rm_resourcegroup:
       name: "{{ azure.vn_rg }}"
       location: "{{ azure.vn_location }}"
+      tags:
+        id: 'R31'
+        user: 'Bobby'
     tags:
       - az-rg
 
