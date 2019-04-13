@@ -62,7 +62,7 @@
       rules:
        - name: 'SSH'
          protocol: Tcp
-         destination_port_range: '20'
+         destination_port_range: '22'
          access: Allow
          direction: Inbound
          priority: '100'
