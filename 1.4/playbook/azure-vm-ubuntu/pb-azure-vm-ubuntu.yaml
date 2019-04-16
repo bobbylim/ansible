@@ -70,7 +70,7 @@
 
   - name: Create VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}
     azure_rm_virtualmachine:
-      resource_group: "VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
+      resource_group: "RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
       name: "VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
       vm_size: Standard_D2s_v3
       admin_username: azureuser
