@@ -1,0 +1,96 @@
+
+  - name: Create resource group
+    azure_rm_resourcegroup:
+      name: "RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.vn_id }}{{ '%s'|format(item) }}"
+      location: southeastasia
+      tags:
+        id: 'R31'
+        user: 'Bobby'
+    with_sequence: count={{ ubuntu.instance }} format="%02d"
+    tags:
+      - az-vm
+      - az-vm-ubuntu
+
+  - name: Create public IP address
+    azure_rm_publicipaddress:
+      resource_group: "RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.vn_id }}{{ '%s'|format(item) }}"
+      allocation_method: Static
+      name: "VM-UBUNTU-{{ azure.vn_id }}{{ '%s'|format(item) }}-pip"
+      domain_name: "{{ azure.tag_id | lower }}-ubuntu-{{ azure.vn_id }}{{ '%s'|format(item) }}"
+    register: public_ip_address_{{ '%s'|format(item) }}
+    with_sequence: count={{ ubuntu.instance }} format="%02d"
+    tags:
+      - az-vm
+      - az-vm-ubuntu
+
+  - name: Create Network Security Group
+    azure_rm_securitygroup:
+      resource_group: "RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.vn_id }}{{ '%s'|format(item) }}"
+      name: "VM-UBUNTU-{{ azure.vn_id }}{{ '%s'|format(item) }}-nsg"
+      rules:
+        - name: SSH
+          protocol: Tcp
+          destination_port_range: 22
+          access: Allow
+          priority: 200
+          direction: Inbound
+        - name: HTTP
+          protocol: Tcp
+          destination_port_range: 80
+          access: Allow
+          priority: 400
+          direction: Inbound
+        - name: Port_8000-9000
+          protocol: Tcp
+          destination_port_range: 8000-9000
+          access: Allow
+          priority: 600
+          direction: Inbound
+    with_sequence: count={{ ubuntu.instance }} format="%02d"
+    tags:
+      - az-vm
+      - az-vm-ubuntu
+
+  - name: Create virtual network inteface card
+    azure_rm_networkinterface:
+      resource_group: "RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.vn_id }}{{ '%s'|format(item) }}"
+      name: "{{ VM-UBUNTU-{{ azure.vn_id }}{{ '%s'|format(item) }}-nic"
+      virtual_network_name: '/subscriptions/{{ azure.subs }}/resourceGroups/RG-{{ azure.tag_id | upper }}/providers/Microsoft.Network/virtualNetworks/VN-{{ azure.tag_id | upper }}-{{ azure.vn_id }}'
+      subnet_name: VLAN_INTERNAL
+      ip_configurations:
+        - name: "VM-UBUNTU-{{ azure.vn_id }}{{ '%s'|format(item) }}-ip"
+          private_ip_allocation_method: Static
+          private_ip_address: "10.{{ azure.vn_id }}.10.1{{ '%s'|format(item) }}"
+          public_ip_address_name: "VM-UBUNTU-{{ azure.vn_id }}{{ '%s'|format(item) }}-pip"
+      security_group: "VM-UBUNTU-{{ azure.vn_id }}{{ '%s'|format(item) }}-nsg"
+    with_sequence: count={{ ubuntu.instance }} format="%02d"
+    tags:
+      - az-vm
+      - az-vm-ubuntu
+
+  - name: Create VM-UBUNTU-{{ azure.vn_id }}{{ '%s'|format(item) }}
+    azure_rm_virtualmachine:
+      resource_group: "VM-UBUNTU-{{ azure.vn_id }}{{ '%s'|format(item) }}"
+      name: "VM-UBUNTU-{{ azure.vn_id }}{{ '%s'|format(item) }}"
+      vm_size: Standard_D2s_v3
+      admin_username: azureuser
+      admin_password: "{{ vault_password }}"
+      ssh_public_keys:
+        - path: '/home/azureuser/.ssh/authorized_keys'
+          key_data: "{{ vault_sshkey }}"
+      network_interfaces: "{{ VM-UBUNTU-{{ azure.vn_id }}{{ '%s'|format(item) }}-nic"
+      image:
+        offer: 'UbuntuServer'
+        publisher: 'Canonical'
+        sku: '18.04-LTS'
+        version: 'latest'
+      tags:
+        type: 'ubuntu'
+        id: 'R31'
+        user: 'Bobby'
+    with_sequence: count={{ ubuntu.instance }} format="%02d"
+    tags:
+      - az-vm
+      - az-vm-ubuntu
+
+  - pause: seconds=30

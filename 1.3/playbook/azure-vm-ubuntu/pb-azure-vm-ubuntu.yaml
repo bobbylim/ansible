@@ -59,7 +59,7 @@
     azure_rm_networkinterface:
       resource_group: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
       name: "{{ ubuntu.vm_name | upper }}-nic"
-      virtual_network_name: '/subscriptions/{{ azure.subs }}/resourceGroups/{{ azure.vn_rg }}/providers/Microsoft.Network/virtualNetworks/VN-R31-07'
+      virtual_network_name: '/subscriptions/{{ azure.subs }}/resourceGroups/{{ azure.vn_rg }}/providers/Microsoft.Network/virtualNetworks/{{ azure.vn_name }}'
       subnet_name: VLAN_INTERNAL
       ip_configurations:
         - name: "{{ ubuntu.vm_name | upper }}-ip"

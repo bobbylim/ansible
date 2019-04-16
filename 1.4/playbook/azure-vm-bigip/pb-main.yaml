@@ -1,0 +1,51 @@
+- name: STEP-01 Deploy {{ bigip.vm_name | upper }} using ARM template
+  hosts: localhost
+  connection: local
+  vars_files:
+    - ../../../vault/vault.yaml
+    - ../../vars.yaml
+  tasks:
+  - include_tasks: pb-azure-vm-bigip.yaml
+    tags:
+      - az-vm
+      - az-vm-bigip
+
+- name: STEP-02 Create a VIP, pool and pool members
+  hosts: localhost
+  connection: local
+  vars_files:
+    - ../../../vault/vault.yaml
+    - ../../vars.yaml
+  vars:
+    BIGIP:
+      server: "{{ bigip.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
+      server_port: 443
+      validate_certs: no
+      user: azureuser
+      password: "{{ vault_password }}"
+  tasks:
+  - include_tasks: pb-azure-vm-bigip-vs-pool.yaml
+
+- name: STEP-03 Provision F5 Module
+  hosts: localhost
+  connection: local
+  vars_files:
+    - ../../../vault/vault.yaml
+    - ../../vars.yaml
+  vars:
+    BIGIP:
+      server: "{{ bigip.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
+      server_port: 443
+      validate_certs: no
+      user: azureuser
+      password: "{{ vault_password }}"
+  tasks:
+  - include_tasks: pb-azure-vm-bigip-resource-provisioning.yaml
+
+- name: STEP-04 Register FQDN for Apps
+  hosts: localhost
+  connection: local
+  vars_files:
+    - ../../vars.yaml
+  tasks:
+  - include_tasks: pb-azure-pip-fqdn.yaml

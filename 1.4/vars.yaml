@@ -1,0 +1,21 @@
+___
+azure:
+  tag_id: "R31"
+  tag_user: "Bobby"
+  tag_vn: "06"
+  subs: "9e15f7f5-cb3a-43d6-99c4-624c2faff15a"
+  vn_rg: "RG-R31"
+  vn_location: "southeastasia"
+
+
+bigip:
+  instance: "2"
+  vs_hackazon_01_ip: "11"
+  vs_dvwa_01_ip: "12"
+  vs_juiceshop_01_ip: "13"
+  vs_hackazon_01_dnslabel: "hackazon"
+  vs_dvwa_01_dnslabel: "dvwa"
+  vs_juiceshop_01_dnslabel: "juiceshop"
+
+ubuntu:
+  instance: "2"

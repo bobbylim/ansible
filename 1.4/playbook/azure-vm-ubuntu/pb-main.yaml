@@ -1,0 +1,44 @@
+
+- name: STEP-01 Create Azure {{ ubuntu.vm_name | upper }}
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  vars_files:
+    - ../../../vault/vault.yaml
+    - ../../vars.yaml
+  tasks:
+  - name: Create {{ ubuntu.vm_name | upper }}
+    include_tasks: pb-azure-vm-ubuntu.yaml
+    tags:
+      - az-vm
+      - az-vm-ubuntu
+
+- name: STEP-02 Install Docker on Ubuntu host
+  vars_files:
+    - ../../vars.yaml
+  hosts: "{{ ubuntu.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
+  gather_facts: yes
+  remote_user: azureuser
+  become: yes
+  become_method: sudo
+  connection: ssh
+  tasks:
+      - name: Install Docker
+        include_tasks: pb-azure-vm-ubuntu-docker.yaml
+        tags:
+          - ubuntu-docker
+
+- name: STEP-03 Pull Docker Image & Create Container
+  vars_files:
+    - ../../vars.yaml
+  hosts: "{{ ubuntu.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
+  gather_facts: no
+  remote_user: azureuser
+  become: yes
+  become_method: sudo
+  connection: ssh
+  tasks:
+      - name: Pull Docker Image & Create Container
+        include_tasks: pb-azure-vm-ubuntu-docker-container.yaml
+        tags:
+          - ubuntu-docker-image
