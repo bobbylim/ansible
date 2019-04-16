@@ -1,5 +1,5 @@
 
-  - name: Create resource group RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}
+  - name: "Create resource group RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
     azure_rm_resourcegroup:
       name: "RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
       location: southeastasia
@@ -60,7 +60,7 @@
       ip_configurations:
         - name: "VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}-ip"
           private_ip_allocation_method: Static
-          private_ip_address: "10.{{ azure.tag_vn }}.10.1{{ '%s'|format(item) }}"
+          private_ip_address: "10.{{ azure.tag_vn }}.20.1{{ '%s'|format(item) }}"
           public_ip_address_name: "VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}-pip"
       security_group: "VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}-nsg"
     with_sequence: count={{ ubuntu.instance }} format="%02d"
@@ -78,7 +78,7 @@
       ssh_public_keys:
         - path: '/home/azureuser/.ssh/authorized_keys'
           key_data: "{{ vault_sshkey }}"
-      network_interfaces: "{{ VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}-nic"
+      network_interfaces: "VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}-nic"
       image:
         offer: 'UbuntuServer'
         publisher: 'Canonical'
