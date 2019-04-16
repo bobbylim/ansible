@@ -4,14 +4,16 @@
   vars_files:
     - ../../vars.yaml
   tasks:
-  - name: Delete a resource group {{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}
+  - name: Delete a resource group UBUNTU
     azure_rm_resourcegroup:
-      name: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
+      name: "RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
       state: absent
       force: True
+    with_sequence: count={{ ubuntu.instance }} format="%02d"
 
-  - name: Delete a resource group {{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}
+  - name: Delete a resource group BIGIP
     azure_rm_resourcegroup:
-      name: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
+      name: "RG-{{ azure.tag_id | upper }}_VM-BIGIP-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
       state: absent
       force: True
+    with_sequence: count={{ bigip.instance }} format="%02d"
