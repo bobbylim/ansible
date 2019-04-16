@@ -71,7 +71,7 @@
       - az-vm
       - az-vm-ubuntu
 
-  - name: Create VM
+  - name: Create {{ ubuntu.vm_name | upper }}
     azure_rm_virtualmachine:
       resource_group: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
       name: "{{ ubuntu.vm_name }}"
