@@ -1,5 +1,6 @@
 - name: Delete a resouce group
   hosts: localhost
+  strategy: free
   connection: local
   vars_files:
     - ../../vars.yaml
@@ -9,6 +10,7 @@
       name: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
       state: absent
       force: True
+
 
   - name: Delete a resource group {{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}
     azure_rm_resourcegroup:

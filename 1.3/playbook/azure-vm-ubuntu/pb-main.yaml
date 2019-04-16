@@ -7,7 +7,7 @@
     - ../../../vault/vault.yaml
     - ../../vars.yaml
   tasks:
-  - name: Create VM UBUNTU-0701
+  - name: Create {{ ubuntu.vm_name | upper }}
     include_tasks: pb-azure-vm-ubuntu.yaml
     tags:
       - az-vm
