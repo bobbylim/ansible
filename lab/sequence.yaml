@@ -1,0 +1,12 @@
+---
+- name: STEP-01 Deploy {{ bigip.vm_name | upper }} using ARM template
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Debug sequence item value
+    debug: msg={{ item }}
+    with_sequence: count=5
+
+  - name: Debug sequence item value (JINJA FORMAT)
+    debug: msg={{ '%s'|format(item) }}
+    with_sequence: count=5 format="%02d"

@@ -6,7 +6,7 @@
 START_TIME=$SECONDS
 
 ansible-playbook ~/github/ansible/1.3/playbook/azure/pb-azure-vn.yaml
-cat ~/github/ansible/1.3/command/azure-demo-01.txt | parallel "{}"
+cat ~/github/ansible/1.3/command/azure-demo-01.txt | parallel --lb "{}"
 
 ELAPSED_TIME=$(($SECONDS - $START_TIME))
 
