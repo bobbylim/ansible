@@ -1,5 +1,5 @@
 
-  - name: "Create resource group RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
+  - name: Create resource group
     azure_rm_resourcegroup:
       name: "RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
       location: southeastasia
@@ -11,7 +11,7 @@
       - az-vm
       - az-vm-ubuntu
 
-  - name: Create public IP address VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}-pip
+  - name: Create public IP address
     azure_rm_publicipaddress:
       resource_group: "RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
       allocation_method: Static
@@ -23,7 +23,7 @@
       - az-vm
       - az-vm-ubuntu
 
-  - name: Create Network Security Group VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}-nsg
+  - name: Create Network Security Group
     azure_rm_securitygroup:
       resource_group: "RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
       name: "VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}-nsg"
@@ -51,7 +51,7 @@
       - az-vm
       - az-vm-ubuntu
 
-  - name: Create virtual network inteface card VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}-nic
+  - name: Create virtual network inteface card
     azure_rm_networkinterface:
       resource_group: "RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
       name: "VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}-nic"
@@ -68,7 +68,7 @@
       - az-vm
       - az-vm-ubuntu
 
-  - name: Create VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}
+  - name: Create VM
     azure_rm_virtualmachine:
       resource_group: "RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
       name: "VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
