@@ -5,8 +5,8 @@
   tasks:
   - name: Debug sequence item value
     debug: msg={{ item }}
-    with_sequence: count=5
+    with_sequence: count=12
 
   - name: Debug sequence item value (JINJA FORMAT)
     debug: msg={{ '%s'|format(item) }}
-    with_sequence: count=5 format="%02d"
+    with_sequence: count=12 format="%02d"
