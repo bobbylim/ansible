@@ -1,5 +1,5 @@
 
-- name: STEP-01 Create Azure {{ ubuntu.vm_name | upper }}
+- name: STEP-01 Create Azure VM-UBUNTU
   hosts: localhost
   gather_facts: no
   connection: local
