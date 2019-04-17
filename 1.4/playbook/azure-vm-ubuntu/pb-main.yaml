@@ -17,4 +17,4 @@
     shell: "ansible-playbook -i /var/tmp/az-vm-ubuntu.ini pb-azure-vm-ubuntu-docker.yaml"
     # async: 10000
     # poll: 5
-    # register: playlogs
+    register: playlogs
