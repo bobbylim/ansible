@@ -11,18 +11,6 @@
       - az-vm
       - az-vm-ubuntu
 
-  - name: Create public IP address
-    azure_rm_publicipaddress:
-      resource_group: "RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
-      allocation_method: Static
-      name: "VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}-pip"
-      domain_name: "{{ azure.tag_id | lower }}-ubuntu-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
-    register: pip_{{ '%s'|format(item) }}
-    with_sequence: count={{ ubuntu.instance }} format="%02d"
-    tags:
-      - az-vm
-      - az-vm-ubuntu
-
   - name: Delete previous Ansible Dynamic Inventory file
     file:
       path: "/var/tmp/az-vm-ubuntu.ini"
@@ -38,6 +26,18 @@
       path: "var/tmp/az-vm-ubuntu.ini"
       line: "{{ azure.tag_id | lower }}-ubuntu-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
     with_sequence: count={{ ubuntu.instance }} format="%02d"
+
+  - name: Create public IP address
+    azure_rm_publicipaddress:
+      resource_group: "RG-{{ azure.tag_id | upper }}_VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
+      allocation_method: Static
+      name: "VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}-pip"
+      domain_name: "{{ azure.tag_id | lower }}-ubuntu-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
+    register: pip_{{ '%s'|format(item) }}
+    with_sequence: count={{ ubuntu.instance }} format="%02d"
+    tags:
+      - az-vm
+      - az-vm-ubuntu
 
   - name: Create Network Security Group
     azure_rm_securitygroup:
