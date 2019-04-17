@@ -18,8 +18,3 @@
     # async: 10000
     # poll: 5
     # register: playlogs
-
-  - name: Delete Ansible Dynamic Inventory file
-    file:
-      path: "/var/tmp/az-vm-ubuntu.ini"
-      state: absent

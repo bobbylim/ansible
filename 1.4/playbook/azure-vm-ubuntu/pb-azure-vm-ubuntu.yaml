@@ -23,7 +23,12 @@
       - az-vm
       - az-vm-ubuntu
 
-  - name: Create Ansible Dynamic Inventory file
+  - name: Delete previous Ansible Dynamic Inventory file
+    file:
+      path: "/var/tmp/az-vm-ubuntu.ini"
+      state: absent
+
+  - name: Create new Ansible Dynamic Inventory file
     file:
       path: "/var/tmp/az-vm-ubuntu.ini"
       state: touch
