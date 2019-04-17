@@ -23,7 +23,7 @@
 
   - name: Populate Ansible Dynamic Inventory file.
     lineinfile:
-      path: "var/tmp/az-vm-ubuntu.ini"
+      path: "/var/tmp/az-vm-ubuntu.ini"
       line: "{{ azure.tag_id | lower }}-ubuntu-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
     with_sequence: count={{ ubuntu.instance }} format="%02d"
 
