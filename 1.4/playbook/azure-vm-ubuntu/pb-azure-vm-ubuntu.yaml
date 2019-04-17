@@ -24,7 +24,7 @@
   - name: Populate Ansible Dynamic Inventory file.
     lineinfile:
       path: "/var/tmp/az-vm-ubuntu.ini"
-      line: "{{ azure.tag_id | lower }}-ubuntu-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
+      line: "{{ azure.tag_id | lower }}-ubuntu-{{ azure.tag_vn }}{{ '%s'|format(item) }}.southeastasia.cloudapp.azure.com"
     with_sequence: count={{ ubuntu.instance }} format="%02d"
 
   - name: Create public IP address
