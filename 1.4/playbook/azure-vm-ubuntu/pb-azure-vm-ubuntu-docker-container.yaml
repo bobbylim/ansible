@@ -1,4 +1,13 @@
-
+- name: Download & Deploy Docker Image
+  vars_files:
+    - ../../vars.yaml
+  hosts: all
+  gather_facts: yes
+  remote_user: azureuser
+  become: yes
+  become_method: sudo
+  connection: ssh
+  tasks:
   - name: Pull image HACKAZON
     docker_image:
       name: ianwijaya/hackazon

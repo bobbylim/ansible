@@ -13,8 +13,22 @@
       - az-vm
       - az-vm-ubuntu
 
-  - name: STEP-02 Install Docker on UBUNTU hosts"
+  - name: STEP-02 Install Docker on UBUNTU hosts
     shell: "ansible-playbook -i /var/tmp/az-vm-ubuntu.ini pb-azure-vm-ubuntu-docker.yaml"
     # async: 10000
     # poll: 5
-    register: playlogs
+    register: step2
+
+  - name: STEP-02 Result
+    debug:
+      msg: "{{ step2 }}"
+
+  - name: STEP-03 Pull Docker Image & Create Container
+    shell: "ansible-playbook -i /var/tmp/az-vm-ubuntu.ini pb-azure-vm-ubuntu-docker-container.yaml"
+    # async: 10000
+    # poll: 5
+    register: step3
+
+  - name: STEP-03 Result
+    debug:
+      msg: "{{ step3 }}"
