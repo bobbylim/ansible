@@ -17,11 +17,22 @@
       allocation_method: Static
       name: "VM-UBUNTU-{{ azure.tag_vn }}{{ '%s'|format(item) }}-pip"
       domain_name: "{{ azure.tag_id | lower }}-ubuntu-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
-    register: public_ip_address_{{ '%s'|format(item) }}
+    register: pip_{{ '%s'|format(item) }}
     with_sequence: count={{ ubuntu.instance }} format="%02d"
     tags:
       - az-vm
       - az-vm-ubuntu
+
+  - name: Create Ansible Dynamic Inventory file
+    file:
+      path: "/var/tmp/az-vm-ubuntu.ini"
+      state: touch
+
+  - name: Populate Ansible Dynamic Inventory file.
+    lineinfile:
+      path: "var/tmp/az-vm-ubuntu.ini"
+      line: "{{ azure.tag_id | lower }}-ubuntu-{{ azure.tag_vn }}{{ '%s'|format(item) }}"
+    with_sequence: count={{ ubuntu.instance }} format="%02d"
 
   - name: Create Network Security Group
     azure_rm_securitygroup:
