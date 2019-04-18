@@ -95,4 +95,4 @@
       - az-vm
       - az-vm-ubuntu
 
-  - pause: seconds=30
+  - pause: seconds=10
