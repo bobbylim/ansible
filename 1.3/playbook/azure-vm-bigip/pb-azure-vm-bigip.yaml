@@ -29,7 +29,7 @@
         mgmtIpAddress:
           value: "{{ bigip.ip_mgmt }}"
         numberOfExternalIps:
-          value: {{ bigip.ext_ip_qty }}
+          value: 8
         externalSubnetName:
           value: "VLAN_EXTERNAL"
         externalIpAddressRangeStart:

@@ -13,7 +13,6 @@ azure:
 bigip:
   vm_name: "vm-bigip-0601"
   vm_dnslabel: "r31-bigip-0601"
-  ext_ip_qty : 8
   ip_mgmt: "10.6.0.10"
   ip_ext: "10.6.10.10"
   ip_int: "10.6.20.10"
