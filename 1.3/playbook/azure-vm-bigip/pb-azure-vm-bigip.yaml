@@ -33,7 +33,7 @@
         externalSubnetName:
           value: "VLAN_EXTERNAL"
         externalIpAddressRangeStart:
-          value: "{{ bigip.ip_ext }}"
+          value: {{ bigip.ip_ext }}
         internalSubnetName:
           value: "VLAN_INTERNAL"
         internalIpAddress:
