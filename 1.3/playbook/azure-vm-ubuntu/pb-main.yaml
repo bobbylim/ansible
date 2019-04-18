@@ -42,3 +42,5 @@
         include_tasks: pb-azure-vm-ubuntu-docker-container.yaml
         tags:
           - ubuntu-docker-image
+
+- debug: msg="the value of foo.txt is {{lookup('file', '/var/tmp/ansible-log.txt') }}"

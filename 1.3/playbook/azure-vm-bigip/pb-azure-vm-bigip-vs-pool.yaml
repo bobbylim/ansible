@@ -13,17 +13,14 @@
         provider: "{{ BIGIP }}"
         description: "webserver HACKAZON"
         pool: POOL_HACKAZON
-        host: "{{ item.host }}"
-        name: "{{ item.name }}"
+        host: "{{ ubuntu.ip_int }}"
+        name: "{{ ubuntu.ip_int }}"
         port: "{{ item.port }}"
       with_items:
-        - host: "{{ ubuntu.ip_int }}"
-          name: "{{ ubuntu.ip_int }}"
-          port: 8011
-        - host: "{{ ubuntu.ip_int }}"
-          name: "{{ ubuntu.ip_int }}"
-          port: 8012
-      delegate_to: localhost
+        - { port: '8011' }
+        - { port: '8012' }
+        - { port: '8013' }
+        - { port: '8014' }
 
     - name: Create POOL_DVWA
       bigip_pool:
@@ -47,28 +44,6 @@
           port: 8021
       delegate_to: localhost
 
-    - name: Create POOL_JUICESHOP
-      bigip_pool:
-        provider: "{{ BIGIP }}"
-        lb_method: round-robin
-        name: POOL_JUICESHOP
-        monitors: http
-      delegate_to: localhost
-
-    - name: Add members to POOL_JUICESHOP
-      bigip_pool_member:
-        provider: "{{ BIGIP }}"
-        description: "webserver JUICESHOP"
-        pool: POOL_JUICESHOP
-        host: "{{ item.host }}"
-        name: "{{ item.name }}"
-        port: "{{ item.port }}"
-      with_items:
-        - host: "{{ ubuntu.ip_int }}"
-          name: "{{ ubuntu.ip_int }}"
-          port: 8031
-      delegate_to: localhost
-
     - name: Create VS_HACKAZON_01
       bigip_virtual_server:
         provider: "{{ BIGIP }}"
@@ -81,6 +56,20 @@
         profiles:
           - http
       delegate_to: localhost
+
+    - name: Create VS_HACKAZON_02
+      bigip_virtual_server:
+        provider: "{{ BIGIP }}"
+        description: Virtual Server HACKAZON (AWF)
+        destination: "{{ bigip.vs_hackazon_02_ip }}"
+        name: VS_HACKAZON_02
+        pool: POOL_HACKAZON
+        port: 80
+        snat: Automap
+        profiles:
+          - http
+      delegate_to: localhost
+
 
     - name: Create VS_DVWA_01
       bigip_virtual_server:
@@ -95,18 +84,19 @@
           - http
       delegate_to: localhost
 
-    - name: Create VS_JUICESHOP_01
+    - name: Create VS_DVWA_02
       bigip_virtual_server:
         provider: "{{ BIGIP }}"
-        description: Virtual Server JUICESHOP
-        destination:  "{{ bigip.vs_juiceshop_01_ip }}"
-        name: VS_JUICESHOP_01
-        pool: POOL_JUICESHOP
+        description: Virtual Server DVWA (AWF)
+        destination:  "{{ bigip.vs_dvwa_02_ip }}"
+        name: VS_DVWA_01
+        pool: POOL_DVWA
         port: 80
         snat: Automap
         profiles:
           - http
       delegate_to: localhost
+
 
     - name: Save the running configuration of the BIG-IP
       bigip_config:

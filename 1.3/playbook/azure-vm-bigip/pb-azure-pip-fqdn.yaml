@@ -7,19 +7,20 @@
       domain_name: "{{ bigip.vs_hackazon_01_dnslabel }}"
     register: "{{ bigip.vs_hackazon_01_dnslabel }}"
 
-  - name: Register FQDN > {{ bigip.vs_dvwa_01_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com
+  - name: Register FQDN > {{ bigip.vs_hackazon_02_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com
+    azure_rm_publicipaddress:
+      resource_group: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
+      name: "{{ bigip.vm_dnslabel }}-ext-pip0"
+      allocation_method: Static
+      domain_name: "{{ bigip.vs_hackazon_02_dnslabel }}"
+    register: "{{ bigip.vs_hackazon_02_dnslabel }}"
+
+  - name: Register FQDN > {{ bigip.vs_dvwa_02_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com
     azure_rm_publicipaddress:
       resource_group: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
       name: "{{ bigip.vm_dnslabel }}-ext-pip1"
       allocation_method: Static
-      domain_name: "{{ bigip.vs_dvwa_01_dnslabel }}"
+      domain_name: "{{ bigip.vs_dvwa_02_dnslabel }}"
     register: "{{ bigip.vs_dvwa_01_dnslabel }}"
 
-  - name: Register FQDN > {{ bigip.vs_juiceshop_01_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com
-    azure_rm_publicipaddress:
-      resource_group: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
-      name: "{{ bigip.vm_dnslabel }}-ext-pip2"
-      allocation_method: Static
-      domain_name: "{{ bigip.vs_juiceshop_01_dnslabel }}"
-    register: "{{ bigip.vs_juiceshop_01_dnslabel }}"
     
