@@ -7,7 +7,7 @@
     docker_image:
       name: vulnerables/web-dvwa
 
-  - name: Create Container {{ item.name }}
+  - name: Create Container HACKAZON
     docker_container:
       name: "{{ item.name }}"
       image: ianwijaya/hackazon
@@ -18,7 +18,7 @@
       - { name: 'HACKAZON-03', port: '8013:80' }
       - { name: 'HACKAZON-04', port: '8014:80' }
 
-  - name: Create Container DVWA-01
+  - name: Create Container DVWA
     docker_container:
       name: DVWA-01
       image: vulnerables/web-dvwa
