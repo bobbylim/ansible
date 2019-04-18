@@ -89,7 +89,7 @@
         provider: "{{ BIGIP }}"
         description: Virtual Server DVWA (AWF)
         destination:  "{{ bigip.vs_dvwa_02_ip }}"
-        name: VS_DVWA_01
+        name: VS_DVWA_02
         pool: POOL_DVWA
         port: 80
         snat: Automap
