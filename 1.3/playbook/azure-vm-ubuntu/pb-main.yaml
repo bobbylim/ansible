@@ -43,20 +43,25 @@
         tags:
           - ubuntu-docker-image
 
-- name: DEVICE / APP FQDN
-  debug:
-    msg:
-      - "BIGIP FQDN:"
-      - "{{ bigip.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
-      - " "
-      - "UBUNTU FQDN:"
-      - "{{ ubuntu.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
-      - " "
-      - "HACKAZON FQDN:"
-      - "{{ bigip.vs_hackazon_01_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
-      - "{{ bigip.vs_hackazon_02_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
-      - " "
-      - "DVWA FQDN:"
-      - "{{ bigip.vs_dvwa_01_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
-      - "{{ bigip.vs_dvwa_01_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
-      - " "
+- name: STEP-04 PRINT RESULTS
+  vars_files:
+    - ../../vars.yaml
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - debug:
+      msg:
+        - "BIGIP FQDN:"
+        - "{{ bigip.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
+        - " "
+        - "UBUNTU FQDN:"
+        - "{{ ubuntu.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
+        - " "
+        - "HACKAZON FQDN:"
+        - "{{ bigip.vs_hackazon_01_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
+        - "{{ bigip.vs_hackazon_02_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
+        - " "
+        - "DVWA FQDN:"
+        - "{{ bigip.vs_dvwa_01_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
+        - "{{ bigip.vs_dvwa_01_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
+        - " "
