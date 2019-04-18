@@ -43,10 +43,14 @@
         tags:
           - ubuntu-docker-image
 
-- debug:
+- name: DEVICE / APP FQDN
+  debug:
     msg:
       - "BIGIP FQDN:"
       - "{{ bigip.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
+      - " "
+      - "UBUNTU FQDN:"
+      - "{{ ubuntu.vm_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
       - " "
       - "HACKAZON FQDN:"
       - "{{ bigip.vs_hackazon_01_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
