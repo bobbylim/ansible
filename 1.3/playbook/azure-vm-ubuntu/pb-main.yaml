@@ -63,5 +63,5 @@
         - " "
         - "DVWA FQDN:"
         - "{{ bigip.vs_dvwa_01_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
-        - "{{ bigip.vs_dvwa_01_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
+        - "{{ bigip.vs_dvwa_02_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com"
         - " "
