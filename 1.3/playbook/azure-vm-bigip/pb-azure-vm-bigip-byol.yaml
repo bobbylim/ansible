@@ -1,0 +1,99 @@
+
+  - name: Deploy {{ bigip.vm_name | upper }} using ARM template
+    azure_rm_deployment:
+      state: present
+      resource_group_name: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
+      location: 'southeastasia'
+      template_link: 'https://raw.githubusercontent.com/F5Networks/f5-azure-arm-templates/master/supported/standalone/3nic/existing-stack/byol/azuredeploy.json'
+      parameters:
+        adminUsername:
+          value: "azureuser"
+        adminPasswordOrKey:
+          value: "{{ vault_password }}"
+        dnsLabel:
+          value: "{{ bigip.vm_dnslabel }}"
+        instanceName:
+          value: "{{ bigip.vm_name }}"
+        instanceType:
+          value: "Standard_DS3_v2"
+        imageName:
+          value: "AllTwoBootLocations"
+        bigIpVersion:
+          value: "latest"
+        licenseKey1:
+          value: "QXVYN-ALXUH-STAUF-XNBID-OCNDAVJ"
+        vnetName:
+          value: "{{ azure.vn_name }}"
+        vnetResourceGroupName:
+          value: "{{ azure.vn_rg }}"
+        mgmtSubnetName:
+          value: "VLAN_MGMT"
+        mgmtIpAddress:
+          value: "{{ bigip.ip_mgmt }}"
+        numberOfExternalIps:
+          value: 8
+        externalSubnetName:
+          value: "VLAN_EXTERNAL"
+        externalIpAddressRangeStart:
+          value: "{{ bigip.ip_ext }}"
+        internalSubnetName:
+          value: "VLAN_INTERNAL"
+        internalIpAddress:
+          value: "{{ bigip.ip_int }}"
+        avSetChoice:
+          value: "CREATE_NEW"
+        ntpServer:
+          value: "0.pool.ntp.org"
+        timeZone:
+          value: "Asia/Jakarta"
+        restrictedSrcAddress:
+          value: "*"
+        tagValues:
+          value:
+            type: 'bigip'
+            id: 'R31'
+            user: 'Bobby'
+        allowUsageAnalytics:
+            value: "Yes"
+    register: output
+    tags:
+      - az-vm
+      - az-vm-bigip
+
+  - name: Add TCP Port 22, 80, and 443 rules to {{ bigip.vm_name | upper }} EXT security group
+    become: no
+    azure_rm_securitygroup:
+      resource_group: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
+      name: "{{ bigip.vm_dnslabel | lower }}-ext-nsg"
+      rules:
+       - name: 'SSH'
+         protocol: Tcp
+         destination_port_range: '22'
+         access: Allow
+         direction: Inbound
+         priority: '100'
+       - name: 'HTTP'
+         protocol: Tcp
+         destination_port_range: '80'
+         access: Allow
+         direction: Inbound
+         priority: '200'
+       - name: 'HTTPS'
+         protocol: Tcp
+         destination_port_range: '443'
+         access: Allow
+         direction: Inbound
+         priority: '300'
+    tags:
+      - az-vm
+      - az-vm-bigip
+
+  - name: Add tags to {{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}
+    azure_rm_resourcegroup:
+      name: "{{ azure.vn_rg | upper }}_{{ bigip.vm_name | upper }}"
+      tags:
+        id: 'R31'
+        user: 'Bobby'
+    tags:
+      - az-vm
+      - az-vm-bigip
