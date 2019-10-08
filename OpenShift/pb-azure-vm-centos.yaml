@@ -62,7 +62,7 @@
       ip_configurations:
         - name: "{{ hostvars[item].vm_name | upper }}-ip"
           private_ip_allocation_method: Static
-          private_ip_address: "{{ hostvars[item].ip_int }}"
+          private_ip_address: "{{ hostvars[item].ansible_host }}"
           public_ip_address_name: "{{ hostvars[item].vm_name | upper }}-pip"
       security_group: "{{ hostvars[item].vm_name | upper }}-nsg"
     tags:
