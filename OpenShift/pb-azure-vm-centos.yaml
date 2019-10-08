@@ -86,10 +86,10 @@
           key_data: "{{ vault_sshkey }}"
       network_interfaces: "{{ hostvars[item].vm_name | upper }}-nic"
       image:
-        offer: 'UbuntuServer'
-        publisher: 'Canonical'
-        sku: '18.04-LTS'
-        version: 'latest'
+        offer: CentOS
+        publisher: OpenLogic
+        sku: '7.6'
+        version: latest
       tags:
         type: 'centos'
         id: 'R31'
