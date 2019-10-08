@@ -1,0 +1,12 @@
+- name: Delete a resouce group
+  hosts: localhost
+  connection: local
+  vars_files:
+    - ../../vars.yaml
+  tasks:
+  - name: Delete a VM & Resource Group
+    azure_rm_resourcegroup:
+      name: "{{ azure.vn_rg | upper }}_{{ hostvars[item].vm_name | upper }}"
+      state: absent
+      force: True
+    loop: "{{ groups['node'] }}"
