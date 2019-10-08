@@ -1,5 +1,5 @@
 
-- name: Create Azure {{ hostvars[item].vm_name | upper }}
+- name: Create Azure "{{ hostvars[item].vm_name | upper }}"
   hosts: localhost
   gather_facts: no
   connection: local
@@ -73,7 +73,7 @@
       - az-vm
       - az-vm-centos
 
-  - name: Create {{ hostvars[item].vm_name | upper }}
+  - name: Create "{{ hostvars[item].vm_name | upper }}"
     azure_rm_virtualmachine:
       resource_group: "{{ azure.vn_rg | upper }}_{{ hostvars[item].vm_name | upper }}"
       name: "{{ hostvars[item].vm_name }}"
