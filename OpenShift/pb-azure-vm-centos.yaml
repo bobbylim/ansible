@@ -1,5 +1,5 @@
 
-- name: Create Azure "{{ hostvars[item].vm_name | upper }}"
+- name: Create Azure VM
   hosts: localhost
   gather_facts: no
   connection: local
