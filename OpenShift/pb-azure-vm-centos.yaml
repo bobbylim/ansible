@@ -74,7 +74,7 @@
     azure_rm_virtualmachine:
       resource_group: "{{ azure.vn_rg | upper }}_{{ hostvars[item].vm_name | upper }}"
       name: "{{ hostvars[item].vm_name }}"
-      vm_size: Standard_D2s_v3
+      vm_size: Standard_D4s_v3
       admin_username: azureuser
       admin_password: "{{ vault_password }}"
       ssh_public_keys:
