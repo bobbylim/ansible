@@ -1,0 +1,8 @@
+azure:
+  tag_id: "R31"
+  tag_user: "Bobby"
+  subs: "9e15f7f5-cb3a-43d6-99c4-624c2faff15a"
+  vn_rg: "RG-R31"
+  vn_name: "VN-R31-07"
+  vn_location: "southeastasia"
+  vn_address: "10.7.0.0/16"
