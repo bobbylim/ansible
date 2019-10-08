@@ -2,7 +2,7 @@
   hosts: localhost
   connection: local
   vars_files:
-    - ../../vars.yaml
+    - vars.yaml
   tasks:
   - name: Delete a VM & Resource Group
     azure_rm_resourcegroup:
