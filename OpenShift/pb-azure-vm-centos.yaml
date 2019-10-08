@@ -70,7 +70,7 @@
       - az-vm-centos
     loop: "{{ groups['node'] }}"
 
-  - name: Create {{ hostvars[item].vm_name | upper }}
+  - name: Create Virtual Machine
     azure_rm_virtualmachine:
       resource_group: "{{ azure.vn_rg | upper }}_{{ hostvars[item].vm_name | upper }}"
       name: "{{ hostvars[item].vm_name }}"
