@@ -1,5 +1,5 @@
 
-- name: Create Azure VM
+- name: Create Azure VM "{{ hostvars[item].vm_name }}"
   hosts: localhost
   gather_facts: no
   connection: local
@@ -17,6 +17,7 @@
     tags:
       - az-vm
       - az-vm-centos
+    loop: "{{ groups['node'] }}"
 
   - name: Create public IP address
     azure_rm_publicipaddress:
@@ -28,6 +29,7 @@
     tags:
       - az-vm
       - az-vm-centos
+    loop: "{{ groups['node'] }}"
 
   - name: FQDN & Allocated public IP address
     debug:
@@ -35,6 +37,8 @@
     tags:
       - az-vm
       - az-vm-centos
+    loop: "{{ groups['node'] }}"
+
 
   - name: Create Network Security Group
     azure_rm_securitygroup:
@@ -56,6 +60,7 @@
     tags:
       - az-vm
       - az-vm-centos
+    loop: "{{ groups['node'] }}"
 
   - name: Create virtual network inteface card
     azure_rm_networkinterface:
@@ -72,6 +77,7 @@
     tags:
       - az-vm
       - az-vm-centos
+    loop: "{{ groups['node'] }}"
 
   - name: Create "{{ hostvars[item].vm_name | upper }}"
     azure_rm_virtualmachine:
@@ -96,4 +102,4 @@
     tags:
       - az-vm
       - az-vm-centos
-  loop: "{{ groups['node'] }}"
+    loop: "{{ groups['node'] }}"
