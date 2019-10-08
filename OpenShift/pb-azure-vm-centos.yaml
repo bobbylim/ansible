@@ -31,15 +31,6 @@
       - az-vm-centos
     loop: "{{ groups['node'] }}"
 
-  - name: FQDN & Allocated public IP address
-    debug:
-      msg: "FQDN = {{ public_ip_address.state.dns_settings.fqdn }} , Public IP = {{ public_ip_address.state.ip_address }}"
-    tags:
-      - az-vm
-      - az-vm-centos
-    loop: "{{ groups['node'] }}"
-
-
   - name: Create Network Security Group
     azure_rm_securitygroup:
       resource_group: "{{ azure.vn_rg | upper }}_{{ hostvars[item].vm_name | upper }}"
