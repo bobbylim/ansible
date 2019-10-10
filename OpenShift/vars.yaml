@@ -6,3 +6,10 @@ azure:
   vn_name: "VN-R31-07"
   vn_location: "southeastasia"
   vn_address: "10.7.0.0/16"
+
+bigip:
+  vm_name: "vm-bigip-0705"
+  vm_dnslabel: "r31-bigip-0705"
+  ip_mgmt: "10.7.0.50"
+  ip_ext: "10.7.10.50"
+  ip_int: "10.7.20.50"
