@@ -49,3 +49,5 @@
     - ../../vars.yaml
   tasks:
   - include_tasks: pb-azure-pip-fqdn.yaml
+    tags:
+      - fqdn
