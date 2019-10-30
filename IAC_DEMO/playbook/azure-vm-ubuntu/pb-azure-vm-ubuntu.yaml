@@ -1,0 +1,100 @@
+
+  - name: Create resource group
+    azure_rm_resourcegroup:
+      name: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
+      location: southeastasia
+      tags:
+        id: 'R31'
+        user: 'Bobby'
+        demo: 'ansible'
+    tags:
+      - az-vm
+      - az-vm-ubuntu
+
+  - name: Create public IP address
+    azure_rm_publicipaddress:
+      resource_group: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
+      allocation_method: Static
+      name: "{{ ubuntu.vm_name | upper }}-pip"
+      domain_name: "{{ ubuntu.vm_dnslabel }}"
+    register: public_ip_address
+    tags:
+      - az-vm
+      - az-vm-ubuntu
+
+  - name: FQDN & Allocated public IP address
+    debug:
+      msg: "FQDN = {{ public_ip_address.state.dns_settings.fqdn }} , Public IP = {{ public_ip_address.state.ip_address }}"
+    tags:
+      - az-vm
+      - az-vm-ubuntu
+
+  - name: Create Network Security Group
+    azure_rm_securitygroup:
+      resource_group: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
+      name: "{{ ubuntu.vm_name | upper }}-nsg"
+      rules:
+        - name: SSH
+          protocol: Tcp
+          destination_port_range: 22
+          access: Allow
+          priority: 200
+          direction: Inbound
+        - name: HTTP
+          protocol: Tcp
+          destination_port_range: 80
+          access: Allow
+          priority: 400
+          direction: Inbound
+        - name: Port_8000-9000
+          protocol: Tcp
+          destination_port_range: 8000-9000
+          access: Allow
+          priority: 600
+          direction: Inbound
+    tags:
+      - az-vm
+      - az-vm-ubuntu
+
+  - name: Create virtual network inteface card
+    azure_rm_networkinterface:
+      resource_group: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
+      name: "{{ ubuntu.vm_name | upper }}-nic"
+      virtual_network_name: '/subscriptions/{{ azure.subs }}/resourceGroups/{{ azure.vn_rg }}/providers/Microsoft.Network/virtualNetworks/{{ azure.vn_name }}'
+      subnet_name: VLAN_INTERNAL
+      ip_configurations:
+        - name: "{{ ubuntu.vm_name | upper }}-ip"
+          private_ip_allocation_method: Static
+          private_ip_address: "{{ ubuntu.ip_int }}"
+          public_ip_address_name: "{{ ubuntu.vm_name | upper }}-pip"
+      security_group: "{{ ubuntu.vm_name | upper }}-nsg"
+    tags:
+      - az-vm
+      - az-vm-ubuntu
+
+  - name: Create {{ ubuntu.vm_name | upper }}
+    azure_rm_virtualmachine:
+      resource_group: "{{ azure.vn_rg | upper }}_{{ ubuntu.vm_name | upper }}"
+      name: "{{ ubuntu.vm_name }}"
+      vm_size: Standard_D2s_v3
+      admin_username: azureuser
+      admin_password: "{{ vault_password }}"
+      ssh_public_keys:
+        - path: '/home/azureuser/.ssh/authorized_keys'
+          key_data: "{{ vault_sshkey }}"
+      network_interfaces: "{{ ubuntu.vm_name | upper }}-nic"
+      image:
+        offer: 'UbuntuServer'
+        publisher: 'Canonical'
+        sku: '18.04-LTS'
+        version: 'latest'
+      tags:
+        type: 'ubuntu'
+        id: 'R31'
+        user: 'Bobby'
+        demo: 'ansible'
+    tags:
+      - az-vm
+      - az-vm-ubuntu
+
+  - pause: seconds=10

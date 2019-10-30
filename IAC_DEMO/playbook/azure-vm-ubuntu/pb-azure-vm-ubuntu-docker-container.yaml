@@ -1,0 +1,25 @@
+
+  - name: Pull image HACKAZON
+    docker_image:
+      name: ianwijaya/hackazon
+
+  - name: Pull image DVWA
+    docker_image:
+      name: vulnerables/web-dvwa
+
+  - name: Create Container HACKAZON
+    docker_container:
+      name: "{{ item.name }}"
+      image: ianwijaya/hackazon
+      ports: "{{ item.port }}"
+    loop:
+      - { name: 'HACKAZON-01', port: '8011:80' }
+      - { name: 'HACKAZON-02', port: '8012:80' }
+      - { name: 'HACKAZON-03', port: '8013:80' }
+      - { name: 'HACKAZON-04', port: '8014:80' }
+
+  - name: Create Container DVWA
+    docker_container:
+      name: DVWA-01
+      image: vulnerables/web-dvwa
+      ports: 8021:80
