@@ -5,7 +5,7 @@
       name: "{{ bigip.vm_dnslabel }}-ext-pip0"
       allocation_method: Static
       domain_name: "{{ bigip.vs_hackazon_01_dnslabel }}"
-      sku: "standard"
+      sku: "Standard"
     register: "{{ bigip.vs_hackazon_01_dnslabel }}"
 
   - name: Register FQDN > {{ bigip.vs_hackazon_02_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com
@@ -14,7 +14,7 @@
       name: "{{ bigip.vm_dnslabel }}-ext-pip1"
       allocation_method: Static
       domain_name: "{{ bigip.vs_hackazon_02_dnslabel }}"
-      sku: "standard"
+      sku: "Standard"
     register: "{{ bigip.vs_hackazon_02_dnslabel }}"
 
   - name: Register FQDN > {{ bigip.vs_dvwa_01_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com
@@ -23,7 +23,7 @@
       name: "{{ bigip.vm_dnslabel }}-ext-pip2"
       allocation_method: Static
       domain_name: "{{ bigip.vs_dvwa_01_dnslabel }}"
-      sku: "standard"
+      sku: "Standard"
     register: "{{ bigip.vs_dvwa_01_dnslabel }}"
 
   - name: Register FQDN > {{ bigip.vs_dvwa_02_dnslabel }}.{{ azure.vn_location }}.cloudapp.azure.com
@@ -32,5 +32,5 @@
       name: "{{ bigip.vm_dnslabel }}-ext-pip3"
       allocation_method: Static
       domain_name: "{{ bigip.vs_dvwa_02_dnslabel }}"
-      sku: "standard"
+      sku: "Standard"
     register: "{{ bigip.vs_dvwa_01_dnslabel }}"
